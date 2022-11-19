@@ -9,7 +9,7 @@
 </head>
 <body>
 <form
-        th:action="@{{courseId}/{id}/saveUpdateGroup(id=${group.id}, courseId=${courseId})}"
+        th:action="@{/{companyId}/{id}/saveUpdateGroup(id=${group.id}, companyId=${companyId})}"
         th:object="${group}"
         method="post">
 

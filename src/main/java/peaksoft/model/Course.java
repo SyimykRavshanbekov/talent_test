@@ -34,7 +34,7 @@ public class Course {
     @ManyToOne(cascade = {MERGE, DETACH, REFRESH, PERSIST}, fetch = FetchType.EAGER)
     private Company company;
 
-    @ManyToMany(cascade = {MERGE, DETACH, REFRESH, PERSIST}, fetch = LAZY)
+    @ManyToMany(cascade = {MERGE, DETACH, REFRESH}, fetch = LAZY, mappedBy = "courses")
     private List<Group> groups;
 
     public void addGroup(Group group){
@@ -43,26 +43,26 @@ public class Course {
         }
         groups.add(group);
     }
-//
-//    @OneToMany(cascade = {ALL},fetch = LAZY, mappedBy = "courses")
-//    private List<Instructor> instructors;
-//
-//    public void addInstructors(Instructor instructor){
-//        if (instructors==null){
-//            instructors=new ArrayList<>();
-//        }
-//        instructors.add(instructor);
-//    }
-//
-//    @OneToMany(cascade = {DETACH, PERSIST, REFRESH, MERGE}, fetch = LAZY, mappedBy = "course")
-//    private List<Lesson> lessons;
-//
-//    public void addLesson(Lesson lesson){
-//        if (lessons==null){
-//            lessons=new ArrayList<>();
-//        }
-//        lessons.add(lesson);
-//    }
+
+    @OneToMany(cascade = {ALL},fetch = LAZY, mappedBy = "course")
+    private List<Instructor> instructors;
+
+    public void addInstructors(Instructor instructor){
+        if (instructors==null){
+            instructors=new ArrayList<>();
+        }
+        instructors.add(instructor);
+    }
+
+    @OneToMany(cascade = {DETACH, PERSIST, REFRESH, MERGE}, fetch = LAZY, mappedBy = "course")
+    private List<Lesson> lessons;
+
+    public void addLesson(Lesson lesson){
+        if (lessons==null){
+            lessons=new ArrayList<>();
+        }
+        lessons.add(lesson);
+    }
 
 
 

@@ -8,38 +8,38 @@ import peaksoft.service.TaskService;
 
 import java.util.List;
 
-//@Service
+@Service
 public class TaskServiceImpl implements TaskService {
 
-//    private final TaskRepository taskService;
-//
-//    @Autowired
-//    public TaskServiceImpl(TaskRepository taskService) {
-//        this.taskService = taskService;
-//    }
-//
-//    @Override
-//    public List<Task> getAllTasks() {
-//        return taskService.getAllTasks();
-//    }
-//
-//    @Override
-//    public void addTask(Long id, Task task) {
-//        taskService.addTask(id,task);
-//    }
-//
-//    @Override
-//    public Task getTaskById(Long id) {
-//        return taskService.getTaskById(id);
-//    }
-//
-//    @Override
-//    public void updateTask(Task task, Long id) {
-//        taskService.updateTask(task,id);
-//    }
-//
-//    @Override
-//    public void deleteTask(Long id) {
-//        taskService.deleteTask(id);
-//    }
+    private final TaskRepository taskService;
+
+    @Autowired
+    public TaskServiceImpl(TaskRepository taskService) {
+        this.taskService = taskService;
+    }
+
+    @Override
+    public List<Task> getAllTasks() {
+        return taskService.getAllTasks();
+    }
+
+    @Override
+    public void addTask(Long id, Task task) {
+        taskService.addTask(id,task);
+    }
+
+    @Override
+    public Task getTaskById(Long id) {
+        return taskService.getTaskById(id);
+    }
+
+    @Override
+    public void updateTask(Task task, Long id) {
+        taskService.updateTask(task,id);
+    }
+
+    @Override
+    public void deleteTask(Long id) {
+        taskService.deleteTask(id);
+    }
 }

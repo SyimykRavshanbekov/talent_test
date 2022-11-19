@@ -8,38 +8,38 @@ import peaksoft.service.LessonService;
 
 import java.util.List;
 
-//@Service
+@Service
 public class LessonServiceImpl implements LessonService {
 
-//    private final LessonRepository lessonService;
-//
-//    @Autowired
-//    public LessonServiceImpl(LessonRepository lessonService) {
-//        this.lessonService = lessonService;
-//    }
-//
-//    @Override
-//    public List<Lesson> getAllLessons() {
-//        return lessonService.getAllLessons();
-//    }
-//
-//    @Override
-//    public void addLesson(Long id, Lesson lesson) {
-//        lessonService.addLesson(id,lesson);
-//    }
-//
-//    @Override
-//    public Lesson getLessonById(Long id) {
-//        return lessonService.getLessonById(id);
-//    }
-//
-//    @Override
-//    public void updateLesson(Lesson lesson, Long id) {
-//        lessonService.updateLesson(lesson,id);
-//    }
-//
-//    @Override
-//    public void deleteLesson(Long id) {
-//        lessonService.deleteLesson(id);
-//    }
+    private final LessonRepository lessonService;
+
+    @Autowired
+    public LessonServiceImpl(LessonRepository lessonService) {
+        this.lessonService = lessonService;
+    }
+
+    @Override
+    public List<Lesson> getAllLessons() {
+        return lessonService.getAllLessons();
+    }
+
+    @Override
+    public void addLesson(Long id, Lesson lesson) {
+        lessonService.addLesson(id,lesson);
+    }
+
+    @Override
+    public Lesson getLessonById(Long id) {
+        return lessonService.getLessonById(id);
+    }
+
+    @Override
+    public void updateLesson(Lesson lesson, Long id) {
+        lessonService.updateLesson(lesson,id);
+    }
+
+    @Override
+    public void deleteLesson(Long id) {
+        lessonService.deleteLesson(id);
+    }
 }

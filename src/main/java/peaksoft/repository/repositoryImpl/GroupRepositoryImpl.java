@@ -1,8 +1,10 @@
 package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
+import peaksoft.model.Company;
 import peaksoft.model.Course;
 import peaksoft.model.Group;
+import peaksoft.model.Instructor;
 import peaksoft.repository.GroupRepository;
 
 import javax.persistence.EntityManager;
@@ -25,9 +27,9 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void addGroup(Long id, Group group) {
-        Course course = entityManager.find(Course.class,id);
-        course.addGroup(group);
-        group.addCourse(course);
+        Company company = entityManager.find(Company.class,id);
+        company.addGroup(group);
+        group.setCompany(company);
         entityManager.merge(group);
     }
 
@@ -39,13 +41,32 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void updateGroup(Group group, Long id) {
-        Group group1 = entityManager.find(Group.class,id);
+        Group group1 = getGroupById(id);
         group1.setGroupName(group.getGroupName());
+        group1.setDateOfStart(group.getDateOfStart());
+        group1.setImage(group.getImage());
         entityManager.merge(group1);
     }
 
     @Override
     public void deleteGroup(Long id) {
-        entityManager.remove(entityManager.find(Group.class, id));
+        Group group = entityManager.find(Group.class, id);
+//        group.setCompany(null);
+//        for (Course i: group
+//             ) {
+//
+//        }
+//        entityManager.remove(entityManager.contains(group) ? group : entityManager.merge(group));
+    entityManager.remove(group);
+    }
+
+    @Override
+    public void assignGroup(Long courseId, Long groupId) {
+        Group group = entityManager.find(Group.class, groupId);
+        Course course = entityManager.find(Course.class, courseId);
+        group.addCourse(course);
+        course.addGroup(group);
+        entityManager.merge(group);
+        entityManager.merge(course);
     }
 }

@@ -37,5 +37,15 @@ public class Company {
         courses.add(course1);
     }
 
+    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "company")
+    private List<Group> groups;
+    public void addGroup(Group group){
+        if (groups==null){
+            groups=new ArrayList<>();
+        }
+        groups.add(group);
+    }
+
+
 
 }

@@ -15,6 +15,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @ComponentScan("peaksoft")
 public class WebAppConfig {
 
+
     private final ApplicationContext applicationContext;
 
     public WebAppConfig(ApplicationContext applicationContext) {

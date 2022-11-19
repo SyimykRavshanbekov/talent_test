@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Courses</title>
+    <title>Instructors</title>
     <style>table,
     td {
         border: 1px solid #333;
@@ -15,7 +15,6 @@
         font-size: 25px;
     }
 
-    thread,
     tfoot {
         background-color: #333;
         color: #fff;
@@ -33,31 +32,31 @@
     <thead class="table-dark">
     <tr>
         <th scope="colgroup">Id</th>
-        <th scope="col">Group name</th>
-        <th scope="col">Date of start</th>
-        <th scope="col">image</th>
-        <th scope="col">Student</th>
+        <th scope="col">Instructor name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Phone number</th>
+        <th scope="col">Email</th>
+        <th scope="col">Specialization</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody class="table-success">
-    <tr th:each="group: ${groups}">
-        <td th:text="${group.id}"></td>
-        <td th:text="${group.groupName}"></td>
-        <td th:text="${group.dateOfStart}"></td>
-        <td th:text="${group.image}"></td>
+    <tr th:each="instructors: ${instructorss}">
+        <td th:text="${instructors.id}"></td>
+        <td th:text="${instructors.lastName}"></td>
+        <td th:text="${instructors.firstName}"></td>
+        <td th:text="${instructors.phoneNumber}"></td>
+        <td th:text="${instructors.email}"></td>
+        <td th:text="${instructors.specialization}"></td>
 
-        <td><a th:href="@{/students/{id}(id=${group.getId()})}">
-            <button>Student</button>
-        </a>
-        </td>
 
-        <td><a th:href="@{/updateGroup/{id}(id=${group.id})}">
+        <td><a th:href="@{/updateInstructor/{id}(id=${instructors.id})}">
             <button>Update</button>
         </a>
         </td>
-        <td><a th:href="@{/{companyId}/{id}/deleteGroup(id=${group.id},companyId=${companyId})}">
+        <td><a  th:method="GET" th:href="@{/{courseId}/{id}/deleteInstructor(id=${instructors.id},courseId=${courseId})}"
+                onclick="return confirm('Are you sure to delete this instructor?')">
             <button>Delete</button>
         </a>
         </td>
@@ -66,8 +65,8 @@
 </table>
 <br><br><br><br>
 <div style="text-align: center">
-    <a th:href="@{/groups/{id}/addGroup(id=${companyId})}">
-        <button style="font-size: 25px;"> Add Group </button>
+    <a th:href="@{/instructors/{id}/addInstructor(id=${courseId})}">
+        <button style="font-size: 25px;"> Add Instructor </button>
     </a>
 </div>
 </body>

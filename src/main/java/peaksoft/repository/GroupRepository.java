@@ -14,4 +14,6 @@ public interface GroupRepository {
     void updateGroup(Group group, Long id);
 
     void deleteGroup(Long id);
+
+    void assignGroup(Long courseId, Long groupId);
 }

@@ -1,6 +1,11 @@
 package peaksoft.enums;
 
 public enum StudyFormat {
-    ONLINE,
-    OFFLINE
+    ONLINE("online"),
+    OFFLINE("offline");
+
+
+    StudyFormat(String offline) {
+
+    }
 }
