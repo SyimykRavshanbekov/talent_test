@@ -1,6 +1,7 @@
 package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
+import peaksoft.model.Group;
 import peaksoft.model.Lesson;
 import peaksoft.model.Task;
 import peaksoft.repository.TaskRepository;
@@ -18,9 +19,8 @@ public class TaskRepositoryImpl implements TaskRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Task> getAllTasks() {
-        List<Task> tasks = entityManager.createQuery("select t from Task t", Task.class).getResultList();
-        return tasks;
+    public List<Task> getAllTasks(Long id) {
+        return entityManager.createQuery("select t from Task t where t.lesson.id = :id", Task.class).setParameter("id", id).getResultList();
     }
 
     @Override
@@ -40,6 +40,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     public void updateTask(Task task, Long id) {
         Task task1 = entityManager.find(Task.class, id);
         task1.setTaskName(task.getTaskName());
+        task1.setTaskText(task.getTaskText());
         task1.setDeadLine(task.getDeadLine());
         entityManager.merge(task1);
     }

@@ -30,8 +30,8 @@ public class CourseController {
     @GetMapping("/courses/{id}")
     public String getAllCourses(@PathVariable Long id, Model model,
                                 @ModelAttribute("group") Group group) {
-        model.addAttribute("courses", courseService.getAllCourses());
-        model.addAttribute("groups", groupService.getAllGroup());
+        model.addAttribute("courses", courseService.getAllCourses(id));
+        model.addAttribute("groups", groupService.getAllGroup(id));
         model.addAttribute("companyId",id);
         return "/course/courses";
     }

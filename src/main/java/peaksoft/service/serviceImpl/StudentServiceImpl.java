@@ -19,8 +19,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return service.getAllStudents();
+    public List<Student> getAllStudents(Long id) {
+        return service.getAllStudents(id);
     }
 
     @Override

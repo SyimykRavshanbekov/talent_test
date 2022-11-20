@@ -19,8 +19,8 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> getAllLessons() {
-        return lessonService.getAllLessons();
+    public List<Lesson> getAllLessons(Long id) {
+        return lessonService.getAllLessons(id);
     }
 
     @Override

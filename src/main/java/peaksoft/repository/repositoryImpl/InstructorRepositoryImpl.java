@@ -2,6 +2,7 @@ package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Course;
+import peaksoft.model.Group;
 import peaksoft.model.Instructor;
 import peaksoft.repository.InstructorRepository;
 
@@ -19,8 +20,7 @@ public class InstructorRepositoryImpl implements InstructorRepository {
 
     @Override
     public List<Instructor> getAllInstructor(Long courseId) {
-        List<Instructor> instructors = entityManager.createQuery("select i from Instructor i", Instructor.class).getResultList();
-        return instructors;
+        return entityManager.createQuery("select g from Instructor g where g.course.id = :id", Instructor.class).setParameter("id", courseId).getResultList();
     }
 
     @Override
@@ -42,6 +42,8 @@ public class InstructorRepositoryImpl implements InstructorRepository {
         instructor1.setFirstName(instructor.getFirstName());
         instructor1.setLastName(instructor.getLastName());
         instructor1.setEmail(instructor.getEmail());
+        instructor1.setSpecialization(instructor.getSpecialization());
+        instructor1.setPhoneNumber(instructor.getPhoneNumber());
         entityManager.merge(instructor1);
     }
 

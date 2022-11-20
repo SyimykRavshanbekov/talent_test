@@ -2,6 +2,7 @@ package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Course;
+import peaksoft.model.Group;
 import peaksoft.model.Lesson;
 import peaksoft.repository.LessonRepository;
 
@@ -18,9 +19,8 @@ public class LessonRepositoryImpl implements LessonRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Lesson> getAllLessons() {
-        List<Lesson> lessons = entityManager.createQuery("select l from Lesson l", Lesson.class).getResultList();
-        return lessons;
+    public List<Lesson> getAllLessons(Long id) {
+        return entityManager.createQuery("select s from Lesson s where s.course.id = :id", Lesson.class).setParameter("id", id).getResultList();
     }
 
     @Override

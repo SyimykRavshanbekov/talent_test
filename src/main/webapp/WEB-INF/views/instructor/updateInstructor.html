@@ -14,15 +14,25 @@
         method="post">
 
     <input type="hidden" name="id" th:field="*{id}">
-    <input type="text" name="groupName" th:field="*{firstName}" placeholder="Group Name">
+    <label>
+        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name">
+    </label>
     <br><br>
-    <input type="text" name="dateOfStart" th:field="*{lastName}" placeholder="Date Of Start">
+    <label>
+        <input type="text" name="lastName" th:field="*{lastName}" placeholder="Last Name">
+    </label>
     <br><br>
-    <input type="text" name="image" th:field="*{phoneNumber}" placeholder="Image">
+    <label>
+        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Image">
+    </label>
     <br><br>
-    <input type="text" name="image" th:field="*{email}" placeholder="Image">
+    <label>
+        <input type="text" name="email" th:field="*{email}" placeholder="Email">
+    </label>
     <br><br>
-    <input type="text" name="image" th:field="*{specialization}" placeholder="Image">
+    <label>
+        <input type="text" name="specialization" th:field="*{specialization}" placeholder="Specialization">
+    </label>
     <br><br>
     <input type="submit" value="Add">
 

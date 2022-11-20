@@ -5,7 +5,7 @@ import peaksoft.model.Lesson;
 import java.util.List;
 
 public interface LessonRepository {
-    List<Lesson> getAllLessons();
+    List<Lesson> getAllLessons(Long id);
 
     void addLesson(Long id, Lesson lesson);
 

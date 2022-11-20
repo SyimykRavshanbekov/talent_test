@@ -5,7 +5,7 @@ import peaksoft.model.Task;
 import java.util.List;
 
 public interface TaskRepository {
-    List<Task> getAllTasks();
+    List<Task> getAllTasks(Long id);
 
     void addTask(Long id, Task task);
 

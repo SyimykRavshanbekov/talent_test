@@ -5,7 +5,7 @@ import peaksoft.model.Course;
 import java.util.List;
 
 public interface CourseRepository {
-    List<Course> getAllCourses();
+    List<Course> getAllCourses(Long id);
 
     void addCourse(Long id, Course course);
 

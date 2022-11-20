@@ -21,12 +21,12 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/groups/{id}")
-    public String getAllGroups(@PathVariable Long id, Model model) {
-        model.addAttribute("groups", groupService.getAllGroup());
-        model.addAttribute("companyId", id);
-        return "/course/courses";
-    }
+//    @GetMapping("/groups/{id}")
+//    public String getAllGroups(@PathVariable Long id, Model model) {
+//        model.addAttribute("groups", groupService.getAllGroup(id));
+//        model.addAttribute("companyId", id);
+//        return "/course/courses";
+//    }
 
     @GetMapping("/groups/{id}/addGroup")
     public String addGroup(@PathVariable Long id, Model model) {

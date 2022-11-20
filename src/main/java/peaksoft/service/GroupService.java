@@ -5,7 +5,7 @@ import peaksoft.model.Group;
 import java.util.List;
 
 public interface GroupService {
-    List<Group> getAllGroup();
+    List<Group> getAllGroup(Long id);
 
     void addGroup(Long id, Group group);
 

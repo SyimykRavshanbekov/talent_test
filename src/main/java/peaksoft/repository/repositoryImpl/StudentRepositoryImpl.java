@@ -18,9 +18,8 @@ public class StudentRepositoryImpl implements StudentRepository {
     private EntityManager manager;
 
     @Override
-    public List<Student> getAllStudents() {
-        List<Student> students = manager.createQuery("select s from Student s", Student.class).getResultList();
-        return students;
+    public List<Student> getAllStudents(Long id) {
+        return manager.createQuery("select s from Student s where s.groups.id = :id", Student.class).setParameter("id", id).getResultList();
     }
 
     @Override

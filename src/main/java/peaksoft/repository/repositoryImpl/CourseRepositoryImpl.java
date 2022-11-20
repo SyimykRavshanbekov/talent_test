@@ -19,8 +19,8 @@ public class CourseRepositoryImpl implements CourseRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Course> getAllCourses() {
-        return entityManager.createQuery("from Course", Course.class).getResultList();
+    public List<Course> getAllCourses(Long id) {
+        return entityManager.createQuery("select c from Course c where c.company.id = :id", Course.class).setParameter("id", id).getResultList();
     }
 
     @Override

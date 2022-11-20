@@ -19,8 +19,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getAllGroup() {
-        return groupRepository.getAllGroup();
+    public List<Group> getAllGroup(Long id) {
+        return groupRepository.getAllGroup(id);
     }
 
     @Override

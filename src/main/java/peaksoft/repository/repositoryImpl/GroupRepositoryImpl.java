@@ -20,13 +20,12 @@ public class GroupRepositoryImpl implements GroupRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Group> getAllGroup() {
-        List<Group> groups = entityManager.createQuery("select c from Group c", Group.class).getResultList();
-        return groups;
+    public List<Group> getAllGroup(Long id) {
+        return entityManager.createQuery("select g from Group g where g.company.id = :id", Group.class).setParameter("id", id).getResultList();
     }
 
     @Override
-    public void addGroup(Long id, Group group) {
+    public void addGroup(Long id, Group group){
         Company company = entityManager.find(Company.class,id);
         company.addGroup(group);
         group.setCompany(company);
@@ -51,12 +50,6 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public void deleteGroup(Long id) {
         Group group = entityManager.find(Group.class, id);
-//        group.setCompany(null);
-//        for (Course i: group
-//             ) {
-//
-//        }
-//        entityManager.remove(entityManager.contains(group) ? group : entityManager.merge(group));
     entityManager.remove(group);
     }
 

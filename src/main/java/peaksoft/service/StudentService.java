@@ -5,7 +5,7 @@ import peaksoft.model.Student;
 import java.util.List;
 
 public interface StudentService {
-    List<Student> getAllStudents();
+    List<Student> getAllStudents(Long id);
 
     void addStudent(Long id, Student student);
 
