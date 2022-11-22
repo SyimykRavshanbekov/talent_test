@@ -27,6 +27,7 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public List<Group> getAllGroupsByCourseId(Long courseId) {
         List<Group> groupList = entityManager.find(Course.class,courseId).getGroups();
+        groupList.forEach(System.out::println);
         return groupList;
     }
 
@@ -36,6 +37,20 @@ public class GroupRepositoryImpl implements GroupRepository {
         company.addGroup(group);
         group.setCompany(company);
         entityManager.merge(group);
+    }
+
+    @Override
+    public void addGroupByCourseId(Long id, Long courseId, Group group) {
+        Company company = entityManager.find(Company.class,id);
+        Course course = entityManager.find(Course.class, courseId);
+
+        company.addGroup(group);
+        group.setCompany(company);
+        group.addCourse(course);
+        course.addGroup(group);
+
+        entityManager.merge(course);
+        entityManager.merge(company);
     }
 
 
@@ -56,7 +71,11 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public void deleteGroup(Long id) {
         Group group = entityManager.find(Group.class, id);
-    entityManager.remove(group);
+        for (Course c:group.getCourses()) {
+            c.setGroups(null);
+        }
+        group.setCourses(null);
+        entityManager.remove(group);
     }
 
     @Override

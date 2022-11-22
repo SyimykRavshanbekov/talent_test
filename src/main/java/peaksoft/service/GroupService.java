@@ -8,6 +8,8 @@ public interface GroupService {
     List<Group> getAllGroup(Long id);
     List<Group> getAllGroupsByCourseId(Long courseId);
 
+    void addGroupByCourseId(Long id, Long courseId, Group group);
+
     void addGroup(Long id, Group group);
 
     Group getGroupById(Long id);

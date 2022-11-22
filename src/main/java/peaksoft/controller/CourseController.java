@@ -83,6 +83,6 @@ public class CourseController {
                                     @PathVariable("courseId") Long courseId,
                                     @ModelAttribute("group") Group group) {
         groupService.assignGroup(courseId, group.getId());
-        return "redirect:/courses/" + comId;
+        return "redirect:/groups/" + comId + "/"+courseId;
     }
 }

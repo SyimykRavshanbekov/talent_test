@@ -42,7 +42,7 @@
     </tr>
     </thead>
     <tbody class="table-success">
-    <tr th:each="group: ${groups}">
+    <tr th:each="group: ${groupCourses}">
         <td th:text="${group.id}"></td>
         <td th:text="${group.groupName}"></td>
         <td th:text="${group.dateOfStart}"></td>
@@ -57,7 +57,7 @@
             <button>Update</button>
         </a>
         </td>
-        <td><a th:href="@{/{companyId}/{id}/deleteGroup(id=${group.id},companyId=${companyId})}">
+        <td><a th:href="@{/{courseId}/{id}/deleteGroupByCourseId(id=${group.id},courseId=${courseId})}">
             <button>Delete</button>
         </a>
         </td>
@@ -66,7 +66,7 @@
 </table>
 <br><br><br><br>
 <div style="text-align: center">
-    <a th:href="@{/groups/{id}/addGroup(id=${companyId})}">
+    <a th:href="@{/groups/{companyId}/{id}/addGroupByCourseId(id=${courseId}, companyId=${companyId})}">
         <button style="font-size: 25px;"> Add Group </button>
     </a>
 </div>

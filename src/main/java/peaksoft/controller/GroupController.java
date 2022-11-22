@@ -21,10 +21,11 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/groups/{id}")
-    public String getAllGroups(@PathVariable Long id, Model model) {
-        model.addAttribute("groups", groupService.getAllGroupsByCourseId(id));
+    @GetMapping("/groups/{companyId}/{id}")
+    public String getAllGroups(@PathVariable("id") Long id, @PathVariable("companyId") Long companyId, Model model) {
+        model.addAttribute("groupCourses", groupService.getAllGroupsByCourseId(id));
         model.addAttribute("courseId", id);
+        model.addAttribute("companyId", companyId);
         return "/group/groups";
     }
 
@@ -40,6 +41,21 @@ public class GroupController {
                             @PathVariable Long id) {
         groupService.addGroup(id, group);
         return "redirect:/courses/" + id;
+    }
+
+    @GetMapping("/groups/{companyId}/{id}/addGroupByCourseId")
+    public String addGroupByCourseId(@PathVariable("companyId") Long companyId, @PathVariable("id") Long id, Model model) {
+        model.addAttribute("newGroup", new Group());
+        model.addAttribute("courseId", id);
+        model.addAttribute("companyId", companyId);
+        return "/group/addGroupByCourse";
+    }
+
+    @PostMapping("/{courseId}/{id}/saveGroupByCourseId")
+    public String saveGroupByCourseId(@ModelAttribute("group") Group group,
+                            @PathVariable("id") Long id, @PathVariable("courseId") Long courseId) {
+        groupService.addGroupByCourseId(id,courseId, group);
+        return "redirect:/groups/" + id +"/"+courseId;
     }
 
     @GetMapping("/updateGroup/{id}")
@@ -70,14 +86,21 @@ public class GroupController {
     public String saveUpdateGroupByCourseId(@PathVariable("courseId") Long courseId,
                                    @PathVariable("id") Long id,
                                    @ModelAttribute("group") Group group) {
+        Long companyId = groupService.getGroupById(id).getCompany().getId();
         groupService.updateGroup(group,id);
-        return "redirect:/groups/"+courseId;
+        return "redirect:/groups/"+companyId+"/"+courseId;
     }
-
 
     @GetMapping("/{companyId}/{id}/deleteGroup")
     public String deleteGroup(@PathVariable("id") Long id, @PathVariable("companyId") Long companyId) {
         groupService.deleteGroup(id);
         return "redirect:/courses/" + companyId;
+    }
+
+    @GetMapping("/{courseId}/{id}/deleteGroupByCourseId")
+    public String deleteGroupCourseId(@PathVariable("id") Long id, @PathVariable("courseId") Long courseId) {
+        Long companyId = groupService.getGroupById(id).getCompany().getId();
+        groupService.deleteGroup(id);
+        return "redirect:/groups/"+ companyId + "/" + courseId;
     }
 }
