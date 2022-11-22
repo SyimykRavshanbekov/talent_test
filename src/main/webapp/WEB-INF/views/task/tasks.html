@@ -34,6 +34,7 @@
     <tr>
         <th scope="colgroup">Id</th>
         <th scope="col">Task name</th>
+        <th scope="col">Task text</th>
         <th scope="col">deadline</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
@@ -43,6 +44,8 @@
     <tr th:each="task: ${tasks}">
         <td th:text="${task.id}"></td>
         <td th:text="${task.taskName}"></td>
+        <td th:text="${task.taskText}"></td>
+
         <td th:text="${task.deadLine}"></td>
 
         <td><a th:href="@{/updateTask/{id}(id=${task.id})}">

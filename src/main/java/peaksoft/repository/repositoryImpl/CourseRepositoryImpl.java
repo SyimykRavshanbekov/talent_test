@@ -9,6 +9,7 @@ import peaksoft.repository.CourseRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -24,8 +25,13 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public void addCourse(Long id, Course course) {
+    public void addCourse(Long id, Course course) throws IOException {
         Company company=entityManager.find(Company.class,id);
+        for (Character i: course.getCourseName().toCharArray()) {
+            if (!Character.isLetter(i)){
+                throw new IOException("В название курса нельзя вставлять цифры");
+            }
+        }
         company.addCourse(course);
         course.setCompany(company);
         entityManager.merge(course);

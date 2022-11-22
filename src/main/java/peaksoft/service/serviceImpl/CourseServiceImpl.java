@@ -6,6 +6,7 @@ import peaksoft.model.Course;
 import peaksoft.repository.CourseRepository;
 import peaksoft.service.CourseService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -24,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void addCourse(Long id, Course course) {
+    public void addCourse(Long id, Course course) throws IOException {
         courseRepository.addCourse(id,course);
     }
 

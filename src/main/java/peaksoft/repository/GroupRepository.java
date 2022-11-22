@@ -2,6 +2,7 @@ package peaksoft.repository;
 
 import peaksoft.model.Group;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface GroupRepository {
@@ -20,5 +21,5 @@ public interface GroupRepository {
 
     void deleteGroup(Long id);
 
-    void assignGroup(Long courseId, Long groupId);
+    void assignGroup(Long courseId, Long groupId) throws IOException;
 }

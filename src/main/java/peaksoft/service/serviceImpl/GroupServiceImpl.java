@@ -6,6 +6,7 @@ import peaksoft.model.Group;
 import peaksoft.repository.GroupRepository;
 import peaksoft.service.GroupService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -54,7 +55,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void assignGroup(Long courseId, Long groupId) {
+    public void assignGroup(Long courseId, Long groupId) throws IOException {
         groupRepository.assignGroup(courseId, groupId);
     }
 }

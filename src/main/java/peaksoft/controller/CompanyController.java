@@ -9,6 +9,7 @@ import peaksoft.model.Company;
 import peaksoft.service.CompanyService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,7 @@ public class CompanyController {
     }
 
     @PostMapping("/saveCompany")
-    public String saveCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) {
+    public String saveCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) throws IOException {
         if (bindingResult.hasErrors()){
             return "/company/addCompany";
         }

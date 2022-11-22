@@ -10,6 +10,7 @@ import peaksoft.repository.CompanyRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -25,21 +26,19 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         return entityManager.createQuery("from Company", Company.class).getResultList();
     }
 
-//    @Override
-//    public int countStudent(Long id) {
-//        Company company = entityManager.find(Company.class, id);
-//        int count = 0;
-//            for (Group g: company.getGroups()) {
-//                for (Student s: g.getStudents()) {
-//                    count++;
-//                }
-//            }
-//        return count;
-//    }
-
     @Override
     @Transactional
-    public void addCompany(Company company) {
+    public void addCompany(Company company) throws IOException {
+        for (Character i: company.getCompanyName().toCharArray()) {
+            if (!Character.isLetter(i)){
+                throw new IOException("В название компании нельзя вставлять цифры");
+            }
+        }
+        for (Character i: company.getLocatedCountry().toCharArray()) {
+            if (!Character.isLetter(i)){
+                throw new IOException("В название страны нельзя вставлять цифры");
+            }
+        }
         entityManager.persist(company);
     }
 

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>update-group</title>
+</head>
+<body>
+<form
+        th:action="@{/{courseId}/{id}/saveUpdateGroupByCourseId(id=${group.id}, courseId=${courseId})}"
+        th:object="${group}"
+        method="post">
+
+    <input type="hidden" name="id" th:field="*{id}">
+    <input type="text" name="groupName" th:field="*{groupName}" placeholder="Group Name" required>
+    <br><br>
+    <input type="text" name="dateOfStart" th:field="*{dateOfStart}" placeholder="date of start" required>
+    <br><br>
+    <input type="text" name="image" th:field="*{image}" placeholder="image" required>
+    <br><br>
+    <input type="submit" value="Add">
+
+</form>
+</body>
+</html>

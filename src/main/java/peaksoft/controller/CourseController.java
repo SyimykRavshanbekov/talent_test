@@ -14,6 +14,7 @@ import peaksoft.service.CourseService;
 import peaksoft.service.GroupService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @Controller
@@ -48,7 +49,7 @@ public class CourseController {
 
     @PostMapping("/{id}/saveCourse")
     public String saveCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult,
-                             @PathVariable Long id) {
+                             @PathVariable Long id) throws IOException {
         if (bindingResult.hasErrors()){
             return "redirect:/courses/"+id+"/addCourse";
         }
@@ -81,7 +82,7 @@ public class CourseController {
     @PostMapping("{courseId}/{companyId}/assignGroup")
     private String assignGroup(@PathVariable("companyId") Long comId,
                                     @PathVariable("courseId") Long courseId,
-                                    @ModelAttribute("group") Group group) {
+                                    @ModelAttribute("group") Group group) throws IOException {
         groupService.assignGroup(courseId, group.getId());
         return "redirect:/groups/" + comId + "/"+courseId;
     }

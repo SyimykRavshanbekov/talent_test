@@ -7,6 +7,7 @@ import peaksoft.model.Company;
 import peaksoft.repository.CompanyRepository;
 import peaksoft.service.CompanyService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -25,7 +26,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void addCompany(Company company) {
+    public void addCompany(Company company) throws IOException {
         companyRepository.addCompany(company);
     }
 

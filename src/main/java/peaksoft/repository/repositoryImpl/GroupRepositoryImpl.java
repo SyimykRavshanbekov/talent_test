@@ -10,6 +10,7 @@ import peaksoft.repository.GroupRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -26,14 +27,14 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public List<Group> getAllGroupsByCourseId(Long courseId) {
-        List<Group> groupList = entityManager.find(Course.class,courseId).getGroups();
+        List<Group> groupList = entityManager.find(Course.class, courseId).getGroups();
         groupList.forEach(System.out::println);
         return groupList;
     }
 
     @Override
-    public void addGroup(Long id, Group group){
-        Company company = entityManager.find(Company.class,id);
+    public void addGroup(Long id, Group group) {
+        Company company = entityManager.find(Company.class, id);
         company.addGroup(group);
         group.setCompany(company);
         entityManager.merge(group);
@@ -41,7 +42,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void addGroupByCourseId(Long id, Long courseId, Group group) {
-        Company company = entityManager.find(Company.class,id);
+        Company company = entityManager.find(Company.class, id);
         Course course = entityManager.find(Course.class, courseId);
 
         company.addGroup(group);
@@ -71,17 +72,22 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public void deleteGroup(Long id) {
         Group group = entityManager.find(Group.class, id);
-        for (Course c:group.getCourses()) {
-            c.setGroups(null);
+        for (Course c : group.getCourses()) {
+            c.getGroups().remove(group);
         }
         group.setCourses(null);
         entityManager.remove(group);
     }
 
     @Override
-    public void assignGroup(Long courseId, Long groupId) {
+    public void assignGroup(Long courseId, Long groupId) throws IOException {
         Group group = entityManager.find(Group.class, groupId);
         Course course = entityManager.find(Course.class, courseId);
+        for (Group g : course.getGroups()) {
+            if (g.getId() == groupId) {
+                throw new IOException("This group already exists!");
+            }
+        }
         group.addCourse(course);
         course.addGroup(group);
         entityManager.merge(group);
