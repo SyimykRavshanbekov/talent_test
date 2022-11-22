@@ -41,7 +41,7 @@ public class Company {
         count--;
     }
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "company")
+    @OneToMany(cascade = {MERGE, DETACH, REMOVE, PERSIST}, fetch = LAZY, mappedBy = "company")
     private List<Course> courses;
     public void addCourse(Course course1){
         if (courses==null){
