@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface GroupService {
     List<Group> getAllGroup(Long id);
+    List<Group> getAllGroupsByCourseId(Long courseId);
 
     void addGroup(Long id, Group group);
 

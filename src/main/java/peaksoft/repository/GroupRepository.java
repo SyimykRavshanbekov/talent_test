@@ -7,6 +7,8 @@ import java.util.List;
 public interface GroupRepository {
     List<Group> getAllGroup(Long id);
 
+    List<Group> getAllGroupsByCourseId(Long courseId);
+
     void addGroup(Long id, Group group);
 
     Group getGroupById(Long id);

@@ -25,6 +25,12 @@ public class GroupRepositoryImpl implements GroupRepository {
     }
 
     @Override
+    public List<Group> getAllGroupsByCourseId(Long courseId) {
+        List<Group> groupList = entityManager.find(Course.class,courseId).getGroups();
+        return groupList;
+    }
+
+    @Override
     public void addGroup(Long id, Group group){
         Company company = entityManager.find(Company.class,id);
         company.addGroup(group);

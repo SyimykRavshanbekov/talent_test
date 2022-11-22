@@ -1,5 +1,6 @@
 package peaksoft.repository.repositoryImpl;
 
+import javassist.NotFoundException;
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Course;
 import peaksoft.model.Group;
@@ -9,6 +10,7 @@ import peaksoft.repository.InstructorRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -24,11 +26,18 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     }
 
     @Override
-    public void addInstructor(Long id, Instructor instructor) {
+    public void addInstructor(Long id, Instructor instructor) throws IOException {
+        List<Instructor> instructors = entityManager.createQuery("from Instructor", Instructor.class).getResultList();
+        for (Instructor i : instructors) {
+            if (i.getEmail().equals(instructor.getEmail())){
+                throw new IOException("Instructor with email already exists!");
+            }
+        }
         Course course = entityManager.find(Course.class, id);
         course.addInstructors(instructor);
         instructor.setCourse(course);
         entityManager.merge(course);
+        instructor.plusStudent(course);
     }
 
     @Override
@@ -37,7 +46,14 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     }
 
     @Override
-    public void updateInstructor(Instructor instructor, Long id) {
+    public void updateInstructor(Instructor instructor, Long id) throws IOException {
+        List<Instructor> instructors = entityManager.createQuery("from Instructor", Instructor.class).getResultList();
+        for (Instructor i : instructors) {
+            if (i.getEmail().equals(instructor.getEmail())){
+                throw new IOException("Instructor with email already exists!");
+            }
+        }
+
         Instructor instructor1 = entityManager.find(Instructor.class, id);
         instructor1.setFirstName(instructor.getFirstName());
         instructor1.setLastName(instructor.getLastName());

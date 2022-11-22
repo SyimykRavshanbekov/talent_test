@@ -2,6 +2,9 @@ package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Company;
+import peaksoft.model.Course;
+import peaksoft.model.Group;
+import peaksoft.model.Student;
 import peaksoft.repository.CompanyRepository;
 
 import javax.persistence.EntityManager;
@@ -21,6 +24,18 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     public List<Company> getAllCompanies() {
         return entityManager.createQuery("from Company", Company.class).getResultList();
     }
+
+//    @Override
+//    public int countStudent(Long id) {
+//        Company company = entityManager.find(Company.class, id);
+//        int count = 0;
+//            for (Group g: company.getGroups()) {
+//                for (Student s: g.getStudents()) {
+//                    count++;
+//                }
+//            }
+//        return count;
+//    }
 
     @Override
     @Transactional

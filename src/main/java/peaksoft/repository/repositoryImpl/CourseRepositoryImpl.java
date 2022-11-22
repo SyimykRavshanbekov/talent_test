@@ -40,6 +40,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     public void updateCourse(Course course, Long id) {
         Course course1 = entityManager.find(Course.class,id);
         course1.setCourseName(course.getCourseName());
+        course1.setDescription(course.getDescription());
         course1.setDuration(course.getDuration());
         entityManager.merge(course1);
     }

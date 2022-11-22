@@ -1,7 +1,9 @@
 package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
+import peaksoft.model.Course;
 import peaksoft.model.Group;
+import peaksoft.model.Instructor;
 import peaksoft.model.Student;
 import peaksoft.repository.StudentRepository;
 
@@ -28,6 +30,11 @@ public class StudentRepositoryImpl implements StudentRepository {
         group.addStudent(student);
         student.setGroups(group);
         manager.merge(student);
+        for (Course c:student.getGroups().getCompany().getCourses()) {
+            for (Instructor i: c.getInstructors()) {
+                i.plus();
+            }
+        }
     }
 
     @Override
@@ -49,6 +56,18 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public void deleteStudent(Long id) {
         Student student = manager.find(Student.class, id);
+        student.getGroups().getCompany().minusStudent();
+        for (Course c:student.getGroups().getCompany().getCourses()) {
+            for (Group g:c.getGroups()) {
+                for (Student s:g.getStudents()) {
+                   if (s.equals(student)){
+                       for (Instructor i:c.getInstructors()) {
+                           i.minus();
+                       }
+                   }
+                }
+            }
+        }
         student.setGroups(null);
         manager.remove(student);
     }

@@ -8,6 +8,8 @@ public interface CompanyService {
 
     void addCompany(Company company);
 
+//    int countStudent(Long id);
+
     Company getCompanyById(Long id);
 
     void updateCompany(Company company);

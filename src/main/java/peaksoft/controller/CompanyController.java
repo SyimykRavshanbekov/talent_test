@@ -66,4 +66,11 @@ public class CompanyController {
         service.deleteCompany(service.getCompanyById(id));
         return "redirect:/getAllCompanies";
     }
+
+//    @GetMapping("/countStudent")
+//    public String countStudent(@RequestParam("companyId") Long id, Model model){
+//        int countOfStudent = service.countStudent(id);
+//        model.addAttribute("count", countOfStudent);
+//        return "redirect:/getAllCompanies";
+//    }
 }

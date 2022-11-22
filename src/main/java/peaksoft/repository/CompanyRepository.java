@@ -7,7 +7,7 @@ import java.util.List;
 public interface CompanyRepository {
 
     List<Company> getAllCompanies();
-
+    
     void addCompany(Company company);
 
     Company getCompanyById(Long id);

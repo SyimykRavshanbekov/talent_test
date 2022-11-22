@@ -15,23 +15,23 @@
 
     <input type="hidden" name="id" th:field="*{id}">
     <label>
-        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name">
+        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name" required>
     </label>
     <br><br>
     <label>
-        <input type="text" name="lastName" th:field="*{lastName}" placeholder="Last Name">
+        <input type="text" name="lastName" th:field="*{lastName}" placeholder="Last Name" required>
     </label>
     <br><br>
     <label>
-        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Image">
+        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Image" required>
     </label>
     <br><br>
     <label>
-        <input type="text" name="email" th:field="*{email}" placeholder="Email">
+        <input type="text" name="email" th:field="*{email}" placeholder="Email" required>
     </label>
     <br><br>
     <label>
-        <input type="text" name="specialization" th:field="*{specialization}" placeholder="Specialization">
+        <input type="text" name="specialization" th:field="*{specialization}" placeholder="Specialization" required>
     </label>
     <br><br>
     <input type="submit" value="Add">

@@ -31,7 +31,7 @@ public class Group {
     @Column(length = 100000, name = "image")
     private String image;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "groups")
     private List<Course> courses;
 
     public void addCourse(Course course){
@@ -49,6 +49,7 @@ public class Group {
             students=new ArrayList<>();
         }
         students.add(student);
+        this.getCompany().plusStudent();
     }
 
     @ManyToOne(cascade = {MERGE, PERSIST, DETACH, REFRESH}, fetch = FetchType.EAGER)

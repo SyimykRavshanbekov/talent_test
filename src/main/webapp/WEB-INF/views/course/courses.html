@@ -36,8 +36,8 @@
         <th scope="col">Course name</th>
         <th scope="col">Duration</th>
         <th scope="col">Description</th>
-<!--        <th scope="col">Group</th>-->
-        <th scope="col">Group</th>
+        <th scope="col">AssGroup</th>
+        <th scope="col">Groups</th>
         <th scope="col">Instructor</th>
         <th scope="col">Lesson</th>
         <th scope="col">Update</th>
@@ -51,10 +51,7 @@
         <td th:text="${course.duration}"></td>
         <td th:text="${course.description}"></td>
 
-<!--        <td><a th:href="@{/groups/{id}(id=${course.getId()})}">-->
-<!--            <button>Groups</button>-->
-<!--        </a>-->
-<!--        </td>-->
+
 
         <td>
             <form th:method="POST"
@@ -67,6 +64,11 @@
                 </select>
                 <input  type="submit" value="submit"/>
             </form>
+        </td>
+
+        <td><a th:href="@{/groups/{id}(id=${course.getId()})}">
+            <button>Groups</button>
+        </a>
         </td>
 
         <td><a th:href="@{/instructors/{id}(id=${course.getId()})}">

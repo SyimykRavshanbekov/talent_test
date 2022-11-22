@@ -1,14 +1,19 @@
 package peaksoft.controller;
 
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import peaksoft.model.Instructor;
 import peaksoft.service.InstructorService;
+
+import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class InstructorController {
@@ -54,14 +59,17 @@ public class InstructorController {
     }
 
     @PostMapping("/{id}/saveInstructors")
-    public String saveInstructor(@ModelAttribute("instructor") Instructor instructor, @PathVariable Long id) {
+    public String saveInstructor(@ModelAttribute("instructor") @Valid Instructor instructor, BindingResult bindingResult, @PathVariable Long id) throws IOException {
+        if (bindingResult.hasErrors()){
+            return "/instructor/addInstructor";
+        }
         instructorService.addInstructor(id, instructor);
         return "redirect:/instructors/" + id;
     }
     @PostMapping("/{courseId}/{id}/updateInstructor")
     public String saveUpdateInstructor(@PathVariable("courseId") Long courseId,
                                        @PathVariable("id") Long id,
-                                       @ModelAttribute("instructor") Instructor instructor) {
+                                       @ModelAttribute("instructor") Instructor instructor) throws IOException {
         instructorService.updateInstructor(instructor, id);
         return "redirect:/instructors/" + courseId;
     }

@@ -37,6 +37,7 @@
         <th scope="col">Phone number</th>
         <th scope="col">Email</th>
         <th scope="col">Specialization</th>
+        <th scope="col">Students</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
     </tr>
@@ -49,7 +50,7 @@
         <td th:text="${instructors.phoneNumber}"></td>
         <td th:text="${instructors.email}"></td>
         <td th:text="${instructors.specialization}"></td>
-
+        <td th:text="${instructors.students}"></td>
 
         <td><a th:href="@{/updateInstructor/{id}(id=${instructors.id})}">
             <button>Update</button>
