@@ -50,14 +50,6 @@ public class InstructorController {
         return "/instructor/addInstructor";
     }
 
-    @GetMapping("/updateInstructor/{id}")
-    public String updateInstructor(@PathVariable("id") Long id, Model model) {
-        Instructor instructor = instructorService.getInstructorById(id);
-        model.addAttribute("instructor", instructor);
-        model.addAttribute("courseId", instructor.getCourse().getId());
-        return "/instructor/updateInstructor";
-    }
-
     @PostMapping("/{id}/saveInstructors")
     public String saveInstructor(@ModelAttribute("instructor") @Valid Instructor instructor, BindingResult bindingResult, @PathVariable Long id) throws IOException {
         if (bindingResult.hasErrors()){
@@ -66,6 +58,16 @@ public class InstructorController {
         instructorService.addInstructor(id, instructor);
         return "redirect:/instructors/" + id;
     }
+
+    @GetMapping("/updateInstructor/{id}")
+    public String updateInstructor(@PathVariable("id") Long id, Model model) {
+        Instructor instructor = instructorService.getInstructorById(id);
+        model.addAttribute("instructor", instructor);
+        model.addAttribute("courseId", instructor.getCourse().getId());
+        return "/instructor/updateInstructor";
+    }
+
+
     @PostMapping("/{courseId}/{id}/updateInstructor")
     public String saveUpdateInstructor(@PathVariable("courseId") Long courseId,
                                        @PathVariable("id") Long id,

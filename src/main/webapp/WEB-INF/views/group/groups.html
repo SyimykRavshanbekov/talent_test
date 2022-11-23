@@ -36,6 +36,7 @@
         <th scope="col">Group name</th>
         <th scope="col">Date of start</th>
         <th scope="col">image</th>
+        <th scope="col">Course</th>
         <th scope="col">Student</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
@@ -47,6 +48,7 @@
         <td th:text="${group.groupName}"></td>
         <td th:text="${group.dateOfStart}"></td>
         <td th:text="${group.image}"></td>
+        <td th:text="${group.count}"></td>
 
         <td><a th:href="@{/students/{id}(id=${group.getId()})}">
             <button>Student</button>

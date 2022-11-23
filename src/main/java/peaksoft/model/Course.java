@@ -37,10 +37,10 @@ public class Course {
     @Column(length = 100000, name = "description")
     private String description;
 
-    @ManyToOne(cascade = {MERGE, DETACH, REFRESH, PERSIST}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {REFRESH, MERGE, DETACH, REFRESH}, fetch = FetchType.EAGER)
     private Company company;
 
-    @ManyToMany(cascade = {MERGE, DETACH, REFRESH}, fetch = LAZY)
+    @ManyToMany(cascade = {MERGE, REFRESH, DETACH}, fetch = LAZY)
     @JoinTable(
             name = "groups_courses",
             joinColumns = @JoinColumn(name = "course_id"),
@@ -55,7 +55,7 @@ public class Course {
         groups.add(group);
     }
 
-    @OneToMany(cascade = {ALL},fetch = LAZY, mappedBy = "course")
+    @OneToMany(cascade = {MERGE, REFRESH, DETACH, REMOVE, PERSIST},fetch = LAZY, mappedBy = "course")
     private List<Instructor> instructors;
 
     public void addInstructors(Instructor instructor){
@@ -66,7 +66,7 @@ public class Course {
         instructor.plusStudent(this);
     }
 
-    @OneToMany(cascade = {DETACH, PERSIST, REFRESH, MERGE}, fetch = LAZY, mappedBy = "course")
+    @OneToMany(cascade = {MERGE, REFRESH, DETACH, REMOVE, PERSIST}, fetch = LAZY, mappedBy = "course")
     private List<Lesson> lessons;
 
     public void addLesson(Lesson lesson){

@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 @Transactional
@@ -74,6 +75,7 @@ public class GroupRepositoryImpl implements GroupRepository {
         Group group = entityManager.find(Group.class, id);
         for (Course c : group.getCourses()) {
             c.getGroups().remove(group);
+            group.minusCount();
         }
         group.setCourses(null);
         entityManager.remove(group);
@@ -84,7 +86,7 @@ public class GroupRepositoryImpl implements GroupRepository {
         Group group = entityManager.find(Group.class, groupId);
         Course course = entityManager.find(Course.class, courseId);
         for (Group g : course.getGroups()) {
-            if (g.getId() == groupId) {
+            if (Objects.equals(g.getId(), groupId)) {
                 throw new IOException("This group already exists!");
             }
         }

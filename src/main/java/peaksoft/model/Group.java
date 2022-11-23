@@ -31,7 +31,18 @@ public class Group {
     @Column(length = 100000, name = "image")
     private String image;
 
-    @ManyToMany(mappedBy = "groups")
+    private int count;
+
+    public void plusCount(){
+        count++;
+    }
+
+    public void minusCount(){
+        count--;
+    }
+
+
+    @ManyToMany(cascade = {MERGE, REFRESH, DETACH, REMOVE}, mappedBy = "groups")
     private List<Course> courses;
 
     public void addCourse(Course course){
@@ -39,9 +50,11 @@ public class Group {
             courses=new ArrayList<>();
         }
         courses.add(course);
+        plusCount();
     }
 
     @OneToMany(cascade = {ALL}, fetch = FetchType.LAZY, mappedBy = "groups")
+
     private List<Student> students;
 
     public void addStudent(Student student){
@@ -52,6 +65,6 @@ public class Group {
         this.getCompany().plusStudent();
     }
 
-    @ManyToOne(cascade = {MERGE, PERSIST, DETACH, REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {MERGE, DETACH, REFRESH}, fetch = FetchType.EAGER)
     private Company company;
 }

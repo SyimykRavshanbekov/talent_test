@@ -60,6 +60,6 @@ public class Instructor {
         students--;
     }
 
-    @ManyToOne(cascade = {MERGE,DETACH, REFRESH,PERSIST}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {MERGE, DETACH, REFRESH}, fetch = FetchType.EAGER)
     private Course course;
 }
