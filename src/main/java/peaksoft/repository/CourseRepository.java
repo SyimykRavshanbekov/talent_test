@@ -12,7 +12,7 @@ public interface CourseRepository {
 
     Course getCourseById(Long id);
 
-    void updateCourse(Course course, Long id);
+    void updateCourse(Course course, Long id) throws IOException;
 
     void deleteCourse(Long id);
 }

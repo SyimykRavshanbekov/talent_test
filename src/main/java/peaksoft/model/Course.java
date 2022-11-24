@@ -26,14 +26,11 @@ public class Course {
     @SequenceGenerator(name = "course_seq", sequenceName = "course_seq", allocationSize = 1)
     private Long id;
 
-    @NotNull(message = "Course name cant be null")
     @Column(length = 100000, name = "course_name")
     private String courseName;
 
-    @Min(value = 1, message = "course duration should be more than 1 month")
     private int duration;
 
-    @NotNull(message = "Course description cant be null")
     @Column(length = 100000, name = "description")
     private String description;
 

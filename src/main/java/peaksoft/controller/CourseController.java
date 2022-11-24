@@ -48,11 +48,8 @@ public class CourseController {
     }
 
     @PostMapping("/{id}/saveCourse")
-    public String saveCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult,
+    public String saveCourse(@ModelAttribute("course") Course course,
                              @PathVariable Long id) throws IOException {
-        if (bindingResult.hasErrors()){
-            return "redirect:/courses/"+id+"/addCourse";
-        }
         courseService.addCourse(id, course);
         return "redirect:/courses/"+id;
     }
@@ -68,7 +65,7 @@ public class CourseController {
     @GetMapping("/{companyId}/{id}/saveUpdateCourse")
     public String saveUpdateCourse(@PathVariable("companyId") Long companyId,
                                    @PathVariable("id") Long id,
-                                   @ModelAttribute("course") Course course) {
+                                   @ModelAttribute("course") Course course) throws IOException {
         courseService.updateCourse(course,id);
         return "redirect:/courses/"+companyId;
     }
@@ -83,7 +80,8 @@ public class CourseController {
     private String assignGroup(@PathVariable("companyId") Long comId,
                                     @PathVariable("courseId") Long courseId,
                                     @ModelAttribute("group") Group group) throws IOException {
-        groupService.assignGroup(courseId, group.getId());
+        Long id = group.getId();
+        groupService.assignGroup(courseId, id);
         return "redirect:/groups/" + comId + "/"+courseId;
     }
 }

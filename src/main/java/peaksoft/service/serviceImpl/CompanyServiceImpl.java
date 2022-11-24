@@ -41,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void updateCompany(Company company) {
+    public void updateCompany(Company company) throws IOException {
         companyRepository.updateCompany(company);
     }
 

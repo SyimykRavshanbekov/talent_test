@@ -3,6 +3,7 @@ package peaksoft.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,7 +27,8 @@ public class Group {
     private String groupName;
 
     @Column(name = "date_of_start")
-    private String dateOfStart;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate dateOfStart;
 
     @Column(length = 100000, name = "image")
     private String image;
@@ -42,7 +44,7 @@ public class Group {
     }
 
 
-    @ManyToMany(cascade = {MERGE, REFRESH, DETACH, REMOVE}, mappedBy = "groups")
+    @ManyToMany(cascade = {MERGE, REFRESH, DETACH}, mappedBy = "groups")
     private List<Course> courses;
 
     public void addCourse(Course course){
@@ -53,7 +55,7 @@ public class Group {
         plusCount();
     }
 
-    @OneToMany(cascade = {ALL}, fetch = FetchType.LAZY, mappedBy = "groups")
+    @OneToMany(cascade = {MERGE, PERSIST, DETACH, REFRESH, REMOVE}, fetch = FetchType.LAZY, mappedBy = "groups")
 
     private List<Student> students;
 
@@ -65,6 +67,6 @@ public class Group {
         this.getCompany().plusStudent();
     }
 
-    @ManyToOne(cascade = {MERGE, DETACH, REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {MERGE, DETACH, PERSIST, REFRESH}, fetch = FetchType.EAGER)
     private Company company;
 }

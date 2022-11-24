@@ -23,23 +23,18 @@ public class Instructor {
     private Long id;
 
     @Column(length = 100000, name = "first_name")
-    @NotNull(message = "Instructor name can't be null")
     private String firstName;
 
     @Column(length = 100000, name = "last_name")
-    @NotNull(message = "Instructor last name can't be null")
     private String lastName;
 
     @Column(length = 100000, name = "phone_number")
-    @NotNull(message = "Instructor phone number can't be null")
     private String phoneNumber;
 
     @Column(length = 100000, name = "email")
-    @NotNull(message = "Instructor email can't be null")
     private String email;
 
     @Column(length = 100000, name = "specialization")
-    @NotNull(message = "Instructor specialization can't be null")
     private String specialization;
 
     private int students = 0;

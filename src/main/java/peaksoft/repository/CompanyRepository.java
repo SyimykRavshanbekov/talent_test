@@ -13,7 +13,7 @@ public interface CompanyRepository {
 
     Company getCompanyById(Long id);
 
-    void updateCompany(Company company);
+    void updateCompany(Company company) throws IOException;
 
     void deleteCompany(Company company);
 

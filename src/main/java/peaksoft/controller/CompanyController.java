@@ -27,37 +27,30 @@ public class CompanyController {
     public String getCompanies(Model model) {
         List<Company> companies = service.getAllCompanies();
         model.addAttribute("companies", companies);
-        return "/company/all_companies";
+        return "/company/allCompanies";
     }
 
     @GetMapping("/addCompany")
     public String addCompany(Model model) {
         model.addAttribute("company", new Company());
-        return "/company/addCompany";
+        return "/company/add_company";
     }
 
     @PostMapping("/saveCompany")
-    public String saveCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors()){
-            return "/company/addCompany";
-        }
-
+    public String saveCompany(@ModelAttribute("company") Company company) throws IOException {
         service.addCompany(company);
         return "redirect:/getAllCompanies";
     }
 
-    @GetMapping("updateCompany")
+    @GetMapping("/updateCompany")
     public String updateCompany(@RequestParam("companyId") Long id, Model model) {
         Company company = service.getCompanyById(id);
         model.addAttribute("company", company);
         return "/company/updateCompany";
     }
 
-    @PostMapping("/updateCompany")
-    public String saveUpdateCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            return "/company/updateCompany";
-        }
+    @PostMapping("/saveUpdateCompany")
+    public String saveUpdateCompany(@ModelAttribute("company") Company company) throws IOException {
         service.updateCompany(company);
         return "redirect:/getAllCompanies";
     }
@@ -67,11 +60,4 @@ public class CompanyController {
         service.deleteCompany(service.getCompanyById(id));
         return "redirect:/getAllCompanies";
     }
-
-//    @GetMapping("/countStudent")
-//    public String countStudent(@RequestParam("companyId") Long id, Model model){
-//        int countOfStudent = service.countStudent(id);
-//        model.addAttribute("count", countOfStudent);
-//        return "redirect:/getAllCompanies";
-//    }
 }

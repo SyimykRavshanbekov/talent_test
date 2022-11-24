@@ -24,11 +24,9 @@ public class Company {
     @SequenceGenerator(name = "company_seq", sequenceName = "company_seq", allocationSize = 1)
     private Long id;
 
-    @Size(min = 3, max = 20, message = "name of company should be between 3 and 20")
     @Column(length = 100000, name = "company_name")
     private String companyName;
 
-    @NotEmpty(message = "country should not be empty")
     @Column(length = 100000, name = "located_country")
     private String locatedCountry;
 

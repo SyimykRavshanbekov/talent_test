@@ -35,7 +35,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void updateCourse(Course course, Long id) {
+    public void updateCourse(Course course, Long id) throws IOException {
         courseRepository.updateCourse(course,id);
     }
 

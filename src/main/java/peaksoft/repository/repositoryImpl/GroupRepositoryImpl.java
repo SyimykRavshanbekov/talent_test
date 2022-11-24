@@ -85,9 +85,11 @@ public class GroupRepositoryImpl implements GroupRepository {
     public void assignGroup(Long courseId, Long groupId) throws IOException {
         Group group = entityManager.find(Group.class, groupId);
         Course course = entityManager.find(Course.class, courseId);
-        for (Group g : course.getGroups()) {
-            if (Objects.equals(g.getId(), groupId)) {
-                throw new IOException("This group already exists!");
+        if (course.getGroups()!=null){
+            for (Group g : course.getGroups()) {
+                if (g.getId() == groupId) {
+                    throw new IOException("This group already exists!");
+                }
             }
         }
         group.addCourse(course);

@@ -28,11 +28,16 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public void addCourse(Long id, Course course) throws IOException {
         Company company=entityManager.find(Company.class,id);
-        for (Character i: course.getCourseName().toCharArray()) {
-            if (!Character.isLetter(i)){
-                throw new IOException("В название курса нельзя вставлять цифры");
+        if (course.getCourseName().length()>3 && course.getDescription().length()>5 && course.getDescription().length()<15 && course.getDuration()>0 && course.getDuration()<24){
+            for (Character i: course.getCourseName().toCharArray()) {
+                if (!Character.isLetter(i)){
+                    throw new IOException("В название курса нельзя вставлять цифры");
+                }
             }
+        }else {
+            throw new IOException("Form error course registration");
         }
+
         company.addCourse(course);
         course.setCompany(company);
         entityManager.merge(course);
@@ -44,7 +49,16 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public void updateCourse(Course course, Long id) {
+    public void updateCourse(Course course, Long id) throws IOException {
+        if (course.getCourseName().length()>3 && course.getDescription().length()>5 && course.getDescription().length()<15 && course.getDuration()>0 && course.getDuration()<24){
+            for (Character i: course.getCourseName().toCharArray()) {
+                if (!Character.isLetter(i)){
+                    throw new IOException("В название курса нельзя вставлять цифры");
+                }
+            }
+        }else {
+            throw new IOException("Form error course registration");
+        }
         Course course1 = entityManager.find(Course.class,id);
         course1.setCourseName(course.getCourseName());
         course1.setDescription(course.getDescription());
