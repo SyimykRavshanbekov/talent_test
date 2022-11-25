@@ -58,6 +58,7 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ddd;
+            margin: 0 auto;
         }
 
         * {
@@ -66,8 +67,10 @@
 
         /* Add padding to containers */
         .container {
-            padding: 16px;
+            padding: 10px;
+
             background-color: white;
+            width: 50%;
         }
 
         /* Full-width input fields */
@@ -145,7 +148,7 @@
         <input type="email" placeholder="Enter email" th:field="*{email}" name="email" id="email" required>
 
         <label for="psw2"><b>Instructor phone number</b></label>
-        <input type="tel" value="+996" placeholder="Enter phone number" th:field="*{phoneNumber}" name="psw2" id="psw2" required>
+        <input type="text" placeholder="+996 XXX XXX XXX" th:field="*{phoneNumber}" name="psw2" id="psw2" required>
 
         <label for="psw3"><b>Instructor specialization</b></label>
         <input type="text"  placeholder="Enter specialization" th:field="*{specialization}" name="psw2" id="psw3" required>

@@ -6,6 +6,7 @@ import peaksoft.model.Student;
 import peaksoft.repository.StudentRepository;
 import peaksoft.service.StudentService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -24,7 +25,45 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void addStudent(Long id, Student student) {
+    public void addStudent(Long id, Student student) throws IOException {
+        String phone = student.getPhoneNumber().replace(" ", "");
+        String firstName = student.getFirstName().replace(" ", "");
+        String lastName = student.getFirstName().replace(" ", "");
+
+        if (firstName.length()>2 && lastName.length()>2) {
+            for (Character i : firstName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В имени студента нельзя вставлять цифры");
+                }
+            }
+
+            for (Character i : lastName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В фамилию студента нельзя вставлять цифры");
+                }
+            }
+        } else {
+            throw new IOException("В имени или фамилии студента должно быть как минимум 3 буквы");
+        }
+
+        if (phone.length()==13
+                && phone.charAt(0) == '+'
+                && phone.charAt(1) == '9'
+                && phone.charAt(2) == '9'
+                && phone.charAt(3) == '6'){
+            int counter = 0;
+
+            for (Character i : phone.toCharArray()) {
+                if (counter!=0){
+                    if (!Character.isDigit(i)) {
+                        throw new IOException("Формат номера не правильный");
+                    }
+                }
+                counter++;
+            }
+        }else {
+            throw new IOException("Формат номера не правильный");
+        }
         service.addStudent(id,student);
     }
 
@@ -34,7 +73,45 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(Student student, Long id) {
+    public void updateStudent(Student student, Long id) throws IOException {
+        String phone = student.getPhoneNumber().replace(" ", "");
+        String firstName = student.getFirstName().replace(" ", "");
+        String lastName = student.getFirstName().replace(" ", "");
+
+        if (firstName.length()>2 && lastName.length()>2) {
+            for (Character i : firstName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В имени студента нельзя вставлять цифры");
+                }
+            }
+
+            for (Character i : lastName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В фамилию студента нельзя вставлять цифры");
+                }
+            }
+        } else {
+            throw new IOException("В имени или фамилии студента должно быть как минимум 3 буквы");
+        }
+
+        if (phone.length()==13
+                && phone.charAt(0) == '+'
+                && phone.charAt(1) == '9'
+                && phone.charAt(2) == '9'
+                && phone.charAt(3) == '6'){
+            int counter = 0;
+
+            for (Character i : phone.toCharArray()) {
+                if (counter!=0){
+                    if (!Character.isDigit(i)) {
+                        throw new IOException("Формат номера не правильный");
+                    }
+                }
+                counter++;
+            }
+        }else {
+            throw new IOException("Формат номера не правильный");
+        }
         service.updateStudent(student,id);
     }
 

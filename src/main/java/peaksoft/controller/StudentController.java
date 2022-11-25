@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import peaksoft.enums.StudyFormat;
 import peaksoft.model.Student;
 import peaksoft.service.GroupService;
 import peaksoft.service.StudentService;
+
+import java.io.IOException;
 
 @Controller
 public class StudentController {
@@ -25,21 +28,25 @@ public class StudentController {
 
     @GetMapping("/students/{id}")
     public String getAllCourses(@PathVariable Long id, Model model) {
+        Long companyId = groupService.getGroupById(id).getCompany().getId();
         model.addAttribute("students", studentService.getAllStudents(id));
         model.addAttribute("groupId",id);
+        model.addAttribute("companyId",companyId);
         return "/student/students";
     }
 
     @GetMapping("/{id}/addStudent")
     public String addCourse(@PathVariable Long id, Model model) {
         model.addAttribute("student", new Student());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
         model.addAttribute("groupId", id);
         return "/student/addStudent";
     }
 
     @PostMapping("/{id}/saveStudent")
     public String saveCourse(@ModelAttribute("student") Student student,
-                             @PathVariable Long id) {
+                             @PathVariable Long id) throws IOException {
         studentService.addStudent(id, student);
         return "redirect:/students/"+id;
     }
@@ -49,13 +56,15 @@ public class StudentController {
         Student student = studentService.getStudentById(id);
         model.addAttribute("student", student);
         model.addAttribute("groupId", student.getGroups().getId());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
         return "/student/updateStudent";
     }
 
     @PostMapping("/{groupId}/{id}/saveUpdateStudent")
     public String saveUpdateStudent(@PathVariable("groupId") Long groupId,
                                    @PathVariable("id") Long id,
-                                   @ModelAttribute("student") Student student) {
+                                   @ModelAttribute("student") Student student) throws IOException {
        studentService.updateStudent(student, id);
         return "redirect:/students/"+groupId;
     }

@@ -1,36 +1,151 @@
-<!doctype html>
+<!--<!doctype html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>Students</title>-->
+<!--    <style>table,-->
+<!--    td {-->
+<!--        border: 1px solid #333;-->
+<!--        margin-top: 200px;-->
+<!--        margin-left: auto;-->
+<!--        margin-right: auto;-->
+<!--        font-size: 25px;-->
+<!--    }-->
+
+<!--    thread,-->
+<!--    tfoot {-->
+<!--        background-color: #333;-->
+<!--        color: #fff;-->
+<!--    }-->
+<!--    </style>-->
+<!--    <style>-->
+<!--        table, th, td {-->
+<!--            border: 1px solid black;-->
+<!--            padding: 3px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<table class="table table-bordered">-->
+<!--    <thead class="table-dark">-->
+<!--    <tr>-->
+<!--        <th scope="colgroup">Id</th>-->
+<!--        <th scope="col">Lesson name</th>-->
+<!--        <th scope="col">Tasks</th>-->
+<!--        <th scope="col">Update</th>-->
+<!--        <th scope="col">Delete</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody class="table-success">-->
+<!--    <tr th:each="lesson: ${lessons}">-->
+<!--        <td th:text="${lesson.id}"></td>-->
+<!--        <td th:text="${lesson.lessonName}"></td>-->
+
+<!--        <td><a th:href="@{/tasks/{id}(id=${lesson.id})}">-->
+<!--            <button>Tasks</button>-->
+<!--        </a>-->
+<!--        </td>-->
+
+<!--        <td><a th:href="@{/updateLesson/{id}(id=${lesson.id})}">-->
+<!--            <button>Update</button>-->
+<!--        </a>-->
+<!--        </td>-->
+
+<!--        <td><a th:href="@{/{courseId}/{id}/deleteLesson(courseId=${courseId}, id=${lesson.id})}">-->
+<!--            <button>Delete</button>-->
+<!--        </a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<br><br><br><br>-->
+<!--<div style="text-align: center">-->
+<!--    <a th:href="@{/lessons/{id}/addLesson(id=${courseId})}">-->
+<!--        <button style="font-size: 25px;"> Add Lesson </button>-->
+<!--    </a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Students</title>
-    <style>table,
-    td {
-        border: 1px solid #333;
-        margin-top: 200px;
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 25px;
-    }
-
-    thread,
-    tfoot {
-        background-color: #333;
-        color: #fff;
-    }
-    </style>
+    <title>All Companies</title>
     <style>
-        table, th, td {
-            border: 1px solid black;
-            padding: 3px;
+        body{
+            background: white;
+        }
+        .styled-table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            margin-top: 70px;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+        .table {
+            width: 300px;
+            overflow:auto;
+        }
+        .btn {
+            width: 120px;
+            height: 40px;
+            border-radius: 7px;
+            background: #117E68;
+            color: #f5f5f5;
+            box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.24);
+            -webkit-box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.24);
+            -moz-box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.24);
+            border: 1px solid #117E68;
+            font-size: 13px;
+        }
+        .btn:active {
+            transform: translateY(1px);
+        }
+        .btn:hover {
+            background: #009879;
+            border: 1px solid #009879;
         }
     </style>
 </head>
 <body>
-<table class="table table-bordered">
-    <thead class="table-dark">
+
+<table class="styled-table">
+    <thead>
     <tr>
         <th scope="colgroup">Id</th>
         <th scope="col">Lesson name</th>
@@ -39,8 +154,8 @@
         <th scope="col">Delete</th>
     </tr>
     </thead>
-    <tbody class="table-success">
-    <tr th:each="lesson: ${lessons}">
+    <tbody>
+    <tr th:each="lesson: ${lessons}" class="table">
         <td th:text="${lesson.id}"></td>
         <td th:text="${lesson.lessonName}"></td>
 
@@ -64,8 +179,12 @@
 <br><br><br><br>
 <div style="text-align: center">
     <a th:href="@{/lessons/{id}/addLesson(id=${courseId})}">
-        <button style="font-size: 25px;"> Add Lesson </button>
+        <button class="btn"> Add Lesson </button>
+    </a>
+    <a th:href="@{/courses/{id}(id=${courseId})}">
+        <button style="margin-left: 10px"  class="btn"> Courses page </button>
     </a>
 </div>
+
 </body>
 </html>

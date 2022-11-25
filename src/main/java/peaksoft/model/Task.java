@@ -3,6 +3,7 @@ package peaksoft.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,8 +27,9 @@ public class Task {
     @Column(length = 100000, name = "task_text")
     private String taskText;
 
-    @Column(name = "dead_line")
-    private String deadLine;
+    @Column(name = "deadline")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate deadLine;
 
     @ManyToOne(cascade = {MERGE,DETACH,REFRESH,PERSIST}, fetch = FetchType.EAGER)
     private Lesson lesson;

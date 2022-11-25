@@ -26,6 +26,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void addCourse(Long id, Course course) throws IOException {
+        if (course.getCourseName().length()>3 && course.getDescription().length()>5 && course.getDescription().length()<15 && course.getDuration()>0 && course.getDuration()<24){
+            for (Character i: course.getCourseName().toCharArray()) {
+                if (!Character.isLetter(i)){
+                    throw new IOException("В название курса нельзя вставлять цифры");
+                }
+            }
+        }else {
+            throw new IOException("Form error course registration");
+        }
         courseRepository.addCourse(id,course);
     }
 
@@ -36,6 +45,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void updateCourse(Course course, Long id) throws IOException {
+        if (course.getCourseName().length()>3 && course.getDescription().length()>5 && course.getDescription().length()<15 && course.getDuration()>0 && course.getDuration()<24){
+            for (Character i: course.getCourseName().toCharArray()) {
+                if (!Character.isLetter(i)){
+                    throw new IOException("В название курса нельзя вставлять цифры");
+                }
+            }
+        }else {
+            throw new IOException("Form error course registration");
+        }
         courseRepository.updateCourse(course,id);
     }
 

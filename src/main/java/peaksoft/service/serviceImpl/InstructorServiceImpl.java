@@ -26,6 +26,51 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public void addInstructor(Long id, Instructor instructor) throws IOException {
+        List<Instructor> instructors = instructorRepository.getAllInstructor(id);
+        String phone = instructor.getPhoneNumber().replace(" ", "");
+        String firstName = instructor.getFirstName().replace(" ", "");
+        String lastName = instructor.getFirstName().replace(" ", "");
+
+        for (Instructor i : instructors) {
+            if (i.getEmail().equals(instructor.getEmail())){
+                throw new IOException("Instructor with email already exists!");
+            }
+        }
+
+        if (firstName.length()>2 && lastName.length()>2) {
+            for (Character i : firstName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В имени инструктора нельзя вставлять цифры");
+                }
+            }
+
+            for (Character i : lastName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В фамилию инструктора нельзя вставлять цифры");
+                }
+            }
+        } else {
+            throw new IOException("В имени или фамилии инструктора должно быть как минимум 3 буквы");
+        }
+
+        if (phone.length()==13
+                && phone.charAt(0) == '+'
+                && phone.charAt(1) == '9'
+                && phone.charAt(2) == '9'
+                && phone.charAt(3) == '6'){
+            int counter = 0;
+
+            for (Character i : phone.toCharArray()) {
+                if (counter!=0){
+                    if (!Character.isDigit(i)) {
+                        throw new IOException("Формат номера не правильный");
+                    }
+                }
+                counter++;
+            }
+        }else {
+            throw new IOException("Формат номера не правильный");
+        }
         instructorRepository.addInstructor(id,instructor);
     }
 
@@ -36,6 +81,44 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public void updateInstructor(Instructor instructor, Long id) throws IOException {
+        String phone = instructor.getPhoneNumber().replace(" ", "");
+        String firstName = instructor.getFirstName().replace(" ", "");
+        String lastName = instructor.getFirstName().replace(" ", "");
+
+        if (firstName.length()>2 && lastName.length()>2) {
+            for (Character i : firstName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В имени инструктора нельзя вставлять цифры");
+                }
+            }
+
+            for (Character i : lastName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В фамилию инструктора нельзя вставлять цифры");
+                }
+            }
+        } else {
+            throw new IOException("В имени или фамилии инструктора должно быть как минимум 3 буквы");
+        }
+
+        if (phone.length()==13
+                && phone.charAt(0) == '+'
+                && phone.charAt(1) == '9'
+                && phone.charAt(2) == '9'
+                && phone.charAt(3) == '6'){
+            int counter = 0;
+
+            for (Character i : phone.toCharArray()) {
+                if (counter!=0){
+                    if (!Character.isDigit(i)) {
+                        throw new IOException("Формат номера не правильный");
+                    }
+                }
+                counter++;
+            }
+        }else {
+            throw new IOException("Формат номера не правильный");
+        }
         instructorRepository.updateInstructor(instructor,id);
     }
 

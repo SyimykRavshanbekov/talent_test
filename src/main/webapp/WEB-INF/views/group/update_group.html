@@ -106,7 +106,8 @@
 <body>
 
 <form th:action="@{/{companyId}/{id}/saveUpdateGroup(id=${group.id}, companyId=${companyId})}"
-      th:object="${group}">
+      th:object="${group}"
+      method="post">
     <div class="container">
         <hr>
         <input type="hidden" name="id" th:field="*{id}">

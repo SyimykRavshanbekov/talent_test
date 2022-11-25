@@ -1,7 +1,5 @@
-
-
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -62,14 +60,15 @@
             color: dodgerblue;
         }
 
-        form{
+        form {
             display: flex;
             justify-content: center;
             flex-direction: column;
             align-items: center;
             margin-top: 100px;
         }
-        div{
+
+        div {
             border-radius: 15px;
         }
 
@@ -78,7 +77,8 @@
 <body>
 
 <form th:action="@{/{companyId}/{id}/saveUpdateCourse(id=${course.id}, companyId=${companyId})}"
-      th:object="${course}">
+      th:object="${course}"
+      method="post">
     <div class="container">
         <hr>
         <input type="hidden" name="id" th:field="*{id}">

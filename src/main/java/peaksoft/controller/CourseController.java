@@ -79,7 +79,8 @@ public class CourseController {
     @PostMapping("{courseId}/{companyId}/assignGroup")
     private String assignGroup(@PathVariable("companyId") Long comId,
                                     @PathVariable("courseId") Long courseId,
-                                    @ModelAttribute("group") Group group) throws IOException {
+                                    @ModelAttribute("group") Group group)
+                                    throws IOException {
         Long id = group.getId();
         groupService.assignGroup(courseId, id);
         return "redirect:/groups/" + comId + "/"+courseId;

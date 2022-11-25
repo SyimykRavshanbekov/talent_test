@@ -27,12 +27,6 @@ public class InstructorRepositoryImpl implements InstructorRepository {
 
     @Override
     public void addInstructor(Long id, Instructor instructor) throws IOException {
-        List<Instructor> instructors = entityManager.createQuery("from Instructor", Instructor.class).getResultList();
-        for (Instructor i : instructors) {
-            if (i.getEmail().equals(instructor.getEmail())){
-                throw new IOException("Instructor with email already exists!");
-            }
-        }
         Course course = entityManager.find(Course.class, id);
         course.addInstructors(instructor);
         instructor.setCourse(course);
@@ -47,13 +41,6 @@ public class InstructorRepositoryImpl implements InstructorRepository {
 
     @Override
     public void updateInstructor(Instructor instructor, Long id) throws IOException {
-        List<Instructor> instructors = entityManager.createQuery("from Instructor", Instructor.class).getResultList();
-        for (Instructor i : instructors) {
-            if (i.getEmail().equals(instructor.getEmail())){
-                throw new IOException("Instructor with email already exists!");
-            }
-        }
-
         Instructor instructor1 = entityManager.find(Instructor.class, id);
         instructor1.setFirstName(instructor.getFirstName());
         instructor1.setLastName(instructor.getLastName());
