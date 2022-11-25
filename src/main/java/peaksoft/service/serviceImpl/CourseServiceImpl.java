@@ -26,15 +26,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void addCourse(Long id, Course course) throws IOException {
-        if (course.getCourseName().length()>3 && course.getDescription().length()>5 && course.getDescription().length()<15 && course.getDuration()>0 && course.getDuration()<24){
-            for (Character i: course.getCourseName().toCharArray()) {
-                if (!Character.isLetter(i)){
-                    throw new IOException("В название курса нельзя вставлять цифры");
-                }
-            }
-        }else {
-            throw new IOException("Form error course registration");
-        }
+        validator(course.getCourseName(), course.getDescription(), course.getDuration());
         courseRepository.addCourse(id,course);
     }
 
@@ -45,8 +37,18 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void updateCourse(Course course, Long id) throws IOException {
-        if (course.getCourseName().length()>3 && course.getDescription().length()>5 && course.getDescription().length()<15 && course.getDuration()>0 && course.getDuration()<24){
-            for (Character i: course.getCourseName().toCharArray()) {
+        validator(course.getCourseName(), course.getDescription(), course.getDuration());
+        courseRepository.updateCourse(course,id);
+    }
+
+    @Override
+    public void deleteCourse(Long id) {
+        courseRepository.deleteCourse(id);
+    }
+
+    private void validator(String courseName, String description, int duration) throws IOException {
+        if (courseName.length()>3 && description.length()>5 && description.length()<15 && duration>0 && duration<24){
+            for (Character i: courseName.toCharArray()) {
                 if (!Character.isLetter(i)){
                     throw new IOException("В название курса нельзя вставлять цифры");
                 }
@@ -54,11 +56,5 @@ public class CourseServiceImpl implements CourseService {
         }else {
             throw new IOException("Form error course registration");
         }
-        courseRepository.updateCourse(course,id);
-    }
-
-    @Override
-    public void deleteCourse(Long id) {
-        courseRepository.deleteCourse(id);
     }
 }

@@ -27,20 +27,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void addCompany(Company company) throws IOException {
-        if (company.getCompanyName().toLowerCase().length()>2 && company.getLocatedCountry().toLowerCase().length()>2) {
-            for (Character i : company.getCompanyName().toLowerCase().toCharArray()) {
-                if (!Character.isLetter(i)) {
-                    throw new IOException("В названи компании нельзя вставлять цифры или символы");
-                }
-            }
-            for (Character i : company.getLocatedCountry().toLowerCase().toCharArray()) {
-                if (!Character.isLetter(i)) {
-                    throw new IOException("В названии страны нельзя вставлять цифры или символы");
-                }
-            }
-        }else {
-            throw new IOException("В название компании или страны должно быть как минимум 2 буквы");
-        }
+        validator(company.getCompanyName(), company.getLocatedCountry());
         companyRepository.addCompany(company);
     }
 
@@ -51,25 +38,29 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void updateCompany(Company company) throws IOException {
-        if (company.getCompanyName().toLowerCase().length()>2 && company.getLocatedCountry().toLowerCase().length()>2) {
-            for (Character i : company.getCompanyName().toLowerCase().toCharArray()) {
-                if (!Character.isLetter(i)) {
-                    throw new IOException("В названи компании нельзя вставлять цифры");
-                }
-            }
-            for (Character i : company.getLocatedCountry().toLowerCase().toCharArray()) {
-                if (!Character.isLetter(i)) {
-                    throw new IOException("В названии страны нельзя вставлять цифры");
-                }
-            }
-        }else {
-            throw new IOException("В название компании или страны должно быть как минимум 2 буквы");
-        }
+        validator(company.getCompanyName(), company.getLocatedCountry());
         companyRepository.updateCompany(company);
     }
 
     @Override
     public void deleteCompany(Company company) {
         companyRepository.deleteCompany(company);
+    }
+
+    private void validator(String companyName, String locatedCountry) throws IOException {
+        if (companyName.length()>2 && locatedCountry.length()>2) {
+            for (Character i : companyName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В названи компании нельзя вставлять цифры");
+                }
+            }
+            for (Character i : locatedCountry.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В названии страны нельзя вставлять цифры");
+                }
+            }
+        }else {
+            throw new IOException("В название компании или страны должно быть как минимум 2 буквы");
+        }
     }
 }
