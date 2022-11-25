@@ -9,8 +9,6 @@ public interface CompanyService {
 
     void addCompany(Company company) throws IOException;
 
-//    int countStudent(Long id);
-
     Company getCompanyById(Long id);
 
     void updateCompany(Company company) throws IOException;

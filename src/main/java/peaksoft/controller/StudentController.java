@@ -27,7 +27,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/{id}")
-    public String getAllCourses(@PathVariable Long id, Model model) {
+    public String getAllStudents(@PathVariable Long id, Model model) {
         Long companyId = groupService.getGroupById(id).getCompany().getId();
         model.addAttribute("students", studentService.getAllStudents(id));
         model.addAttribute("groupId",id);
@@ -36,7 +36,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/addStudent")
-    public String addCourse(@PathVariable Long id, Model model) {
+    public String assignStudent(@PathVariable Long id, Model model) {
         model.addAttribute("student", new Student());
         model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
         model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
@@ -45,7 +45,7 @@ public class StudentController {
     }
 
     @PostMapping("/{id}/saveStudent")
-    public String saveCourse(@ModelAttribute("student") Student student,
+    public String saveStudent(@ModelAttribute("student") Student student,
                              @PathVariable Long id) throws IOException {
         studentService.addStudent(id, student);
         return "redirect:/students/"+id;
