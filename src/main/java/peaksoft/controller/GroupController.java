@@ -21,7 +21,9 @@ public class GroupController {
     }
 
     @GetMapping("/groups/{companyId}/{id}")
-    public String getAllGroups(@PathVariable("id") Long id, @PathVariable("companyId") Long companyId, Model model) {
+    public String getAllGroups(@PathVariable("id") Long id,
+                               @PathVariable("companyId")
+                               Long companyId, Model model) {
         model.addAttribute("groupCourses", groupService.getAllGroupsByCourseId(id));
         model.addAttribute("courseId", id);
         model.addAttribute("companyId", companyId);

@@ -260,6 +260,7 @@
         <th scope="col">Description</th>
         <th scope="col">AssGroup</th>
         <th scope="col">Groups</th>
+        <th scope="col">Ass Instructor</th>
         <th scope="col">Instructor</th>
         <th scope="col">Lesson</th>
         <th scope="col">Update</th>
@@ -292,8 +293,21 @@
         </a>
         </td>
 
+        <td>
+            <form th:method="POST"
+                  th:action="@{/{courseId}/assignInstructor(courseId=${course.getId()})}">
+                <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        th:object="${instructor}" th:field="*{id}">
+                    <option th:each="instructor : ${instructors}"
+                            th:value="${instructor.id}"
+                            th:text="${instructor.getFirstName()}"></option>
+                </select>
+                <input type="submit" value="submit"/>
+            </form>
+        </td>
+
         <td><a th:href="@{/instructors/{id}(id=${course.getId()})}">
-            <button>Ass Instructor</button>
+            <button>Instructors</button>
         </a>
         </td>
 
@@ -335,6 +349,7 @@
         <th scope="col">Date of start</th>
         <th scope="col">image</th>
         <th scope="col">Course</th>
+        <th scope="col">Ass Student</th>
         <th scope="col">Student</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
@@ -347,6 +362,20 @@
         <td th:text="${group.dateOfStart}"></td>
         <td ><img th:src="${group.image}"/></td>
         <td th:text="${group.count}"></td>
+
+
+        <td>
+            <form th:method="POST"
+                  th:action="@{/{groupId}/assignStudent(groupId=${group.getId()})}">
+                <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        th:object="${student}" th:field="*{id}">
+                    <option th:each="student : ${students}"
+                            th:value="${student.id}"
+                            th:text="${student.getFirstName()}"></option>
+                </select>
+                <input type="submit" value="submit"/>
+            </form>
+        </td>
 
         <td><a th:href="@{/students/{id}(id=${group.getId()})}">
             <button>Student</button>

@@ -2,9 +2,12 @@ package peaksoft.repository;
 
 import peaksoft.model.Student;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface StudentRepository {
+    List<Student> getAllListStudent();
+
     List<Student> getAllStudents(Long id);
 
     void addStudent(Long id, Student student);
@@ -15,6 +18,6 @@ public interface StudentRepository {
 
     void deleteStudent(Long id);
 
-    void assignStudent(Long groupId, Long studentId);
+    void assignStudent(Long groupId, Long studentId) throws IOException;
 
 }

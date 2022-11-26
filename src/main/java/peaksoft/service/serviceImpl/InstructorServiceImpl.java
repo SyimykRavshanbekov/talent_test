@@ -20,6 +20,11 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
+    public List<Instructor> getAllList() {
+        return instructorRepository.getAllList();
+    }
+
+    @Override
     public List<Instructor> getAllInstructor(Long courseId) {
         return instructorRepository.getAllInstructor(courseId);
     }
@@ -54,7 +59,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void assignInstructor(Long courseId, Long instructorId) {
+    public void assignInstructor(Long courseId, Long instructorId) throws IOException {
         instructorRepository.assignInstructor(courseId, instructorId);
     }
 

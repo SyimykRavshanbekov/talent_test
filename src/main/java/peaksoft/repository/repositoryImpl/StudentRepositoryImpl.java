@@ -10,6 +10,7 @@ import peaksoft.repository.StudentRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -18,6 +19,11 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @PersistenceContext
     private EntityManager manager;
+
+    @Override
+    public List<Student> getAllListStudent() {
+        return manager.createQuery("from Student", Student.class).getResultList();
+    }
 
     @Override
     public List<Student> getAllStudents(Long id) {
@@ -30,7 +36,7 @@ public class StudentRepositoryImpl implements StudentRepository {
         group.addStudent(student);
         student.setGroups(group);
         manager.merge(student);
-        for (Course c:student.getGroups().getCompany().getCourses()) {
+        for (Course c:student.getGroups().getCourses()) {
             for (Instructor i: c.getInstructors()) {
                 i.plus();
             }
@@ -57,15 +63,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     public void deleteStudent(Long id) {
         Student student = manager.find(Student.class, id);
         student.getGroups().getCompany().minusStudent();
-        for (Course c:student.getGroups().getCompany().getCourses()) {
-            for (Group g:c.getGroups()) {
-                for (Student s:g.getStudents()) {
-                   if (s.equals(student)){
-                       for (Instructor i:c.getInstructors()) {
-                           i.minus();
-                       }
-                   }
-                }
+        for (Course c:student.getGroups().getCourses()) {
+            for (Instructor i:c.getInstructors()) {
+                i.minus();
             }
         }
         student.setGroups(null);
@@ -73,10 +73,28 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public void assignStudent(Long groupId, Long studentId) {
+    public void assignStudent(Long groupId, Long studentId) throws IOException {
         Student student = manager.find(Student.class, studentId);
         Group group = manager.find(Group.class, groupId);
-        group.addStudent(student);
+        if (group.getStudents()!=null){
+            for (Student g : group.getStudents()) {
+                if (g.getId() == studentId) {
+                    throw new IOException("This student already exists!");
+                }
+            }
+        }
+        for (Course c: student.getGroups().getCourses()) {
+            for (Instructor i: c.getInstructors()) {
+                i.minus();
+            }
+        }
+        for (Course c: group.getCourses()) {
+            for (Instructor i: c.getInstructors()) {
+                i.plus();
+            }
+        }
+        student.getGroups().getStudents().remove(student);
+        group.assignStudent(student);
         student.setGroups(group);
         manager.merge(student);
     }

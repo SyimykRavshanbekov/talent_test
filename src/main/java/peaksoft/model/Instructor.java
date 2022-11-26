@@ -38,15 +38,6 @@ public class Instructor {
     private String specialization;
 
     private int students = 0;
-
-    public void plusStudent(Course course1){
-        for (Group group : course1.getGroups()) {
-            for (Student student: group.getStudents()) {
-                students++;
-            }
-        }
-    }
-
     public void plus(){
         students++;
     }

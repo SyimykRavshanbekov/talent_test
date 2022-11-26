@@ -1,10 +1,7 @@
 package peaksoft.repository.repositoryImpl;
 
 import org.springframework.stereotype.Repository;
-import peaksoft.model.Company;
-import peaksoft.model.Course;
-import peaksoft.model.Group;
-import peaksoft.model.Instructor;
+import peaksoft.model.*;
 import peaksoft.repository.GroupRepository;
 
 import javax.persistence.EntityManager;
@@ -73,10 +70,23 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public void deleteGroup(Long id) {
         Group group = entityManager.find(Group.class, id);
+        for (Student s: group.getStudents()) {
+            group.getCompany().minusStudent();
+        }
+
+        for (Course c: group.getCourses()) {
+            for (Student student: group.getStudents()) {
+                for (Instructor i: c.getInstructors()) {
+                    i.minus();
+                }
+            }
+        }
+
         for (Course c : group.getCourses()) {
             c.getGroups().remove(group);
             group.minusCount();
         }
+        group.getStudents().forEach(x -> entityManager.remove(x));
         group.setCourses(null);
         entityManager.remove(group);
     }
@@ -92,6 +102,15 @@ public class GroupRepositoryImpl implements GroupRepository {
                 }
             }
         }
+
+        if (course.getInstructors() != null) {
+            for (Instructor i: course.getInstructors()) {
+                for (Student s: group.getStudents()) {
+                    i.plus();
+                }
+            }
+        }
+
         group.addCourse(course);
         course.addGroup(group);
         entityManager.merge(group);

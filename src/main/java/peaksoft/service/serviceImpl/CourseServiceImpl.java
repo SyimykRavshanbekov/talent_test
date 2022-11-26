@@ -26,7 +26,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void addCourse(Long id, Course course) throws IOException {
-        validator(course.getCourseName(), course.getDescription(), course.getDuration());
+        validator(course.getCourseName().replace(" ", ""), course.getDescription().replace(" ", ""), course.getDuration());
         courseRepository.addCourse(id,course);
     }
 

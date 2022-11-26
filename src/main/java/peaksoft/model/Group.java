@@ -67,6 +67,13 @@ public class Group {
         this.getCompany().plusStudent();
     }
 
+    public void assignStudent(Student student){
+        if (students==null){
+            students=new ArrayList<>();
+        }
+        students.add(student);
+    }
+
     @ManyToOne(cascade = {MERGE, DETACH, PERSIST, REFRESH}, fetch = FetchType.EAGER)
     private Company company;
 }

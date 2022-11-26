@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.List;
 
 public interface InstructorService {
+    List<Instructor> getAllList();
+
     List<Instructor> getAllInstructor(Long courseId);
 
     void addInstructor(Long id, Instructor instructor) throws IOException;
@@ -16,5 +18,5 @@ public interface InstructorService {
 
     void deleteInstructor(Long id);
 
-    void assignInstructor(Long courseId, Long instructorId);
+    void assignInstructor(Long courseId, Long instructorId) throws IOException;
 }

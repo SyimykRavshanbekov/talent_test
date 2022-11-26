@@ -1,6 +1,5 @@
 package peaksoft.controller;
 
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import peaksoft.model.Instructor;
+import peaksoft.service.CourseService;
 import peaksoft.service.InstructorService;
 
 import javax.validation.Valid;
@@ -19,10 +19,12 @@ import java.io.IOException;
 public class InstructorController {
 
     private final InstructorService instructorService;
+    private final CourseService courseService;
 
     @Autowired
-    public InstructorController(InstructorService instructorService) {
+    public InstructorController(InstructorService instructorService, CourseService courseService) {
         this.instructorService = instructorService;
+        this.courseService = courseService;
     }
 
 
@@ -31,6 +33,7 @@ public class InstructorController {
         System.out.println("getAllInstructorController");
         model.addAttribute("instructorss", instructorService.getAllInstructor(id));
         model.addAttribute("courseId",id);
+        model.addAttribute("companyId",courseService.getCourseById(id).getCompany().getId());
         return "/instructor/instructors";
     }
 
@@ -51,10 +54,7 @@ public class InstructorController {
     }
 
     @PostMapping("/{id}/saveInstructors")
-    public String saveInstructor(@ModelAttribute("instructor") @Valid Instructor instructor, BindingResult bindingResult, @PathVariable Long id) throws IOException {
-        if (bindingResult.hasErrors()){
-            return "/instructor/addInstructor";
-        }
+    public String saveInstructor(@ModelAttribute("instructor") Instructor instructor, @PathVariable Long id) throws IOException {
         instructorService.addInstructor(id, instructor);
         return "redirect:/instructors/" + id;
     }

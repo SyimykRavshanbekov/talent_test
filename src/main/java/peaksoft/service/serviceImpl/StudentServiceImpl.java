@@ -21,12 +21,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getAllListStudent() {
+        return service.getAllListStudent();
+    }
+
+    @Override
     public List<Student> getAllStudents(Long id) {
         return service.getAllStudents(id);
     }
 
     @Override
-    public void assignStudent(Long id, Student student) throws IOException {
+    public void addStudent(Long id, Student student) throws IOException {
         List<Student> students = service.getAllStudents(id);
         for (Student i : students) {
             if (i.getEmail().equals(student.getEmail())){
@@ -34,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         validator(student.getPhoneNumber().replace(" ", ""), student.getFirstName().replace(" ", ""), student.getLastName().replace(" ", ""));
-        service.assignStudent(id,student);
+        service.addStudent(id,student);
     }
 
     @Override
@@ -51,6 +56,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Long id) {
         service.deleteStudent(id);
+    }
+
+    @Override
+    public void assignStudent(Long groupId, Long studentId) throws IOException {
+        service.assignStudent(groupId,studentId);
     }
 
     private void validator(String phone, String firstName, String lastName) throws IOException {
