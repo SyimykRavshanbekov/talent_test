@@ -44,7 +44,7 @@ public class Group {
     }
 
 
-    @ManyToMany(cascade = {MERGE, REFRESH, DETACH,PERSIST}, mappedBy = "groups")
+    @ManyToMany(cascade = {MERGE, REFRESH, DETACH}, mappedBy = "groups")
     private List<Course> courses;
 
     public void addCourse(Course course){

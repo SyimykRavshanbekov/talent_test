@@ -31,6 +31,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void addGroupByCourseId(Long id, Long courseId, Group group) {
+        if (group.getImage().length()<15){
+            group.setImage("https://yt3.ggpht.com/ePeV5lyGVIMO_FqtbX1kwUh0ZzkzOOZgt3qCHWYfLB1DkyC5mH9FRINZV_7ouWL3cPIn8Z80kA=s900-c-k-c0x00ffffff-no-rj");
+        }
         groupRepository.addGroupByCourseId(id, courseId, group);
     }
 

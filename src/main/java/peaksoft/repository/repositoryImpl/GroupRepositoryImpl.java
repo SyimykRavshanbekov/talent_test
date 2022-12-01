@@ -32,6 +32,9 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void addGroup(Long id, Group group) {
+        if (group.getImage().length()<15){
+            group.setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6ZKLU-ncmqfKAVjB03AcWFuB2mdVuYGlG85cD-xmF5vf9QwsmYJn8iHMKtzou756N854&usqp=CAU");
+        }
         Company company = entityManager.find(Company.class, id);
         company.addGroup(group);
         group.setCompany(company);

@@ -37,7 +37,7 @@ public class Course {
     @ManyToOne(cascade = {REFRESH, MERGE, DETACH, REFRESH}, fetch = FetchType.EAGER)
     private Company company;
 
-    @ManyToMany(cascade = {MERGE, REFRESH, DETACH,PERSIST}, fetch = LAZY)
+    @ManyToMany(cascade = {MERGE, REFRESH, DETACH}, fetch = LAZY)
     @JoinTable(
             name = "groups_courses",
             joinColumns = @JoinColumn(name = "course_id"),

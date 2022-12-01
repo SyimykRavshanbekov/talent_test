@@ -43,7 +43,7 @@ public class CourseController {
         model.addAttribute("instructors", instructorService.getAllList());
         model.addAttribute("students", studentService.getAllListStudent());
         model.addAttribute("companyId", id);
-        return "/course/courses";
+        return "/course/courses1";
     }
 
     @GetMapping("/courses/{id}/addCourse")
@@ -68,7 +68,7 @@ public class CourseController {
         return "/course/update_courses";
     }
 
-    @GetMapping("/{companyId}/{id}/saveUpdateCourse")
+    @PostMapping("/{companyId}/{id}/saveUpdateCourse")
     public String saveUpdateCourse(@PathVariable("companyId") Long companyId,
                                    @PathVariable("id") Long id,
                                    @ModelAttribute("course") Course course) throws IOException {

@@ -60,7 +60,7 @@ public class CompanyServiceImpl implements CompanyService {
                 }
             }
         }else {
-            throw new IOException("В название компании или страны должно быть как минимум 2 буквы");
+            throw new IOException("В название компании или страны должно быть как минимум 3 буквы");
         }
     }
 }

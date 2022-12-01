@@ -77,7 +77,7 @@
         <th scope="colgroup">Id</th>
         <th scope="col">Group name</th>
         <th scope="col">Date of start</th>
-        <th scope="col">Image</th>
+<!--        <th scope="col">Image</th>-->
         <th scope="col">Course</th>
         <th scope="col">Student</th>
         <th scope="col">Update</th>
@@ -89,7 +89,7 @@
         <td th:text="${group.id}"></td>
         <td th:text="${group.groupName}"></td>
         <td th:text="${group.dateOfStart}"></td>
-        <td><img th:src="${group.image}"/></td>
+<!--        <td><img th:src="${group.image}"/></td>-->
         <td th:text="${group.count}"></td>
 
         <td><a th:href="@{/students/{id}(id=${group.getId()})}">
@@ -110,7 +110,7 @@
 </table>
 <br><br><br><br>
 <div style="text-align: center">
-    <a th:href="@{/groups/{companyId}/{id}/addGroupByCourseId(id=${courseId}, companyId=${companyId})}">
+    <a style="text-decoration: none" th:href="@{/groups/{companyId}/{id}/addGroupByCourseId(id=${courseId}, companyId=${companyId})}">
         <button class="btn"> Add Group </button>
     </a>
     <a th:href="@{/courses/{id}(id=${companyId})}">

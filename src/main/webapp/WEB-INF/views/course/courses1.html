@@ -232,11 +232,12 @@
         @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 
         body {
-            background: #2D3142;
+            background: #f0f4fb;
             font-family: 'Raleway', sans-serif;
         }
 
         .general-container {
+            padding-top: 60px;
             display: flex;
             flex-wrap: wrap;
             row-gap: 40px;
@@ -516,7 +517,8 @@
         </a>
         </td>
         <td><a
-                th:href="@{/{companyId}/{id}/deleteCourse(id=${course.id},companyId=${companyId})}">
+                th:href="@{/{companyId}/{id}/deleteCourse(id=${course.id},companyId=${companyId})}"
+                onclick="return confirm('Are you sure to delete this course?')">
             <button>Delete</button>
         </a>
         </td>
@@ -527,7 +529,7 @@
 <!--<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add course"-->
 <!--       onclick="window.location.href = 'addCourse'">-->
 <div style="text-align: center">
-    <a th:href="@{/courses/{id}/addCourse(id=${companyId})}">
+    <a style="text-decoration: none" th:href="@{/courses/{id}/addCourse(id=${companyId})}">
         <button class="btn"> Add Course</button>
     </a>
 
@@ -536,66 +538,81 @@
     </a>
 </div>
 
-<table class="style-table">
-    <thead>
-    <tr>
-        <th scope="colgroup">Id</th>
-        <th scope="col">Group name</th>
-        <th scope="col">Date of start</th>
-        <th scope="col">image</th>
-        <th scope="col">Course</th>
-        <th scope="col">Ass Student</th>
-        <th scope="col">Student</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="general-container">
     <tr th:each="group: ${groups}">
-        <td th:text="${group.id}"></td>
-        <td th:text="${group.groupName}"></td>
-        <td th:text="${group.dateOfStart}"></td>
-        <td ><img th:src="${group.image}"/></td>
-        <td th:text="${group.count}"></td>
+        <div class="site-container">
+            <div class="article-card">
+                <article>
+                    <figure class="article-image">
+                        <img th:src="${group.image}" alt="group image">
+                    </figure>
+                    <div class="containerCard">
+                        <div class="article-content">
+                            <a href="#" class="card-category">Group</a>
+                            <div class="containerTitle">
+                                <h3>Group name - </h3>
+                                <h3 class="card-title" th:text="${ group.groupName}"></h3>
+                            </div>
+                            <div class="containerTitle">
+                                <h3>Date of start - </h3>
+                                <h3 class="card-title" th:text="${group.dateOfStart}"></h3>
+                            </div>
+                            <div class="containerTitle">
+                                <h3>Courses - </h3>
+                                <h3 class="card-title" th:text="${group.count}"></h3>
+                            </div>
+                            <!--                            <p class="card-excerpt">Lorem adsf adfad adfad adfasdfad-->
+                            <!--                                adsfadfadf adfa adfad</p>-->
 
+                            <div class="containerTitle">
+                                <a class="card-category" th:href="@{/students/{id}(id=${group.getId()})}">Students</a>
+                                <td>
+                                    <form th:method="POST"
+                                          th:action="@{/{groupId}/assignStudent(groupId=${group.getId()})}">
+                                        <select name="instructor" class="form-select form-select-sm"
+                                                aria-label=".form-select-sm example"
+                                                th:object="${student}" th:field="*{id}">
+                                            <option th:each="student : ${students}"
+                                                    th:value="${student.id}"
+                                                    th:text="${student.getFirstName()}"></option>
+                                        </select>
+                                        <input type="submit" value="submit"/>
+                                    </form>
+                                </td>
+                            </div>
 
-        <td>
-            <form th:method="POST"
-                  th:action="@{/{groupId}/assignStudent(groupId=${group.getId()})}">
-                <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                        th:object="${student}" th:field="*{id}">
-                    <option th:each="student : ${students}"
-                            th:value="${student.id}"
-                            th:text="${student.getFirstName()}"></option>
-                </select>
-                <input type="submit" value="submit"/>
-            </form>
-        </td>
+                            <div class="buttons">
+                                <div class="button" id="button-2">
+                                    <div id="slide"></div>
+                                    <a class="link" th:href="@{/updateGroup/{id}(id=${group.id})}">UPDATE</a>
+                                </div>
 
-        <td><a th:href="@{/students/{id}(id=${group.getId()})}">
-            <button>Student</button>
-        </a>
-        </td>
-
-        <td><a th:href="@{/updateGroup/{id}(id=${group.id})}">
-            <button>Update</button>
-        </a>
-        </td>
-        <td><a th:href="@{/{companyId}/{id}/deleteGroup(id=${group.id},companyId=${companyId})}">
-            <button>Delete</button>
-        </a>
-        </td>
+                                <div class="button" id="button-3">
+                                    <div id="circle"></div>
+                                    <a class="link" th:href="@{/{companyId}/{id}/deleteGroup(id=${group.id},companyId=${companyId})}" onclick="return confirm('Are you sure to delete this group?')">DELETE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
     </tr>
-    </tbody>
-</table>
-<br><br><br><br>
-<!--<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add course"-->
-<!--       onclick="window.location.href = 'addCourse'">-->
-<div style="text-align: center">
-    <a th:href="@{/groups/{id}/addGroup(id=${companyId})}">
-        <button class="btn"> Add Group </button>
+</div>
+<div style="padding-top: 40px">
+
+</div>
+<div style="text-align: center" class="boxBtn">
+    <a href="/groups/1/addGroup">
+        <button class="btn"> Add Group</button>
     </a>
 </div>
+<div style="padding-top: 40px">
+
+</div>
+
+<br><br><br><br>
+
 
 </body>
 </html>
